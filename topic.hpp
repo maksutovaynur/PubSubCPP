@@ -194,13 +194,18 @@ namespace topic{
                 semW.push_back(SemMake(name));
             }
         }
-        bool start(){
+        bool start(bool create, bool ign_count){
             if (steady) return true; // TODO: доделать
             if (!memory->exists()){
+                if (!create) return false;
                 if (!memory->create()) return false;
                 if (!memory->open(false)) return false;
                 void *data = memory->data;
-                Header *
+                auto hdr = (Header *) data;
+                hdr->msg_count = msg_count;
+                hdr->msg_size = msg_size;
+                hdr->writer_pos = 0;
+                WposSRC = &(hdr->writer_pos);
             }
         }
         bool recreate(){
@@ -213,16 +218,17 @@ namespace topic{
         Shm memory;
         Sem semN;
         std::vector<Sem> semW, semR;
-
+        ui Wpos, *WposSRC, Rpos;
 
         struct Header{
             ui msg_size;
             ui msg_count;
             ui writer_pos;
         };
+
         static const ui DATA_START = 32;
         static const ui UI_SZ = sizeof(ui);
-        
+
         std::string name;
         ui msg_size, msg_count;
         ui full_size;
