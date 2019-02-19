@@ -3,4 +3,4 @@ project(PubSubCPP2)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(PubSubCPP2 main.cpp topic.h)
+add_executable(PubSubCPP2 main.cpp topic.hpp)

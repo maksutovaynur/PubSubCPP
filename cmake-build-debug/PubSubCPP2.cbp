@@ -87,7 +87,7 @@
 		<Unit filename="/home/aynur/Repos/PubSubCPP/main.cpp">
 			<Option target="PubSubCPP2"/>
 		</Unit>
-		<Unit filename="/home/aynur/Repos/PubSubCPP/topic.h">
+		<Unit filename="/home/aynur/Repos/PubSubCPP/topic.hpp">
 			<Option target="PubSubCPP2"/>
 		</Unit>
 		<Unit filename="/home/aynur/Repos/PubSubCPP/CMakeLists.txt">

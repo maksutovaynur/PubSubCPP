@@ -1,3 +1,5 @@
+#include <memory>
+
 //
 // Created by aynur on 2/19/19.
 //
@@ -8,9 +10,13 @@
 #include <fcntl.h>
 #include <string>
 #include <memory>
+#include <vector>
 
 #ifndef PUBSUBCPP_TOPIC_H
 #define PUBSUBCPP_TOPIC_H
+
+
+#define _enable_std_make_unique
 
 namespace topic{
     using ui = unsigned int;
@@ -72,9 +78,12 @@ namespace topic{
         std::string name;
         ui size;
         int fd = -1;
+        friend class Topic;
     };
     using Shm = std::unique_ptr<SharedMemory>;
-    //using ShmMake = std::make_unique<SharedMemory>;
+    Shm ShmMake(const std::string &name, ui size){
+        return std::make_unique<SharedMemory>(name, size);
+    }
 
     class Semaphore{
     public:
@@ -118,6 +127,9 @@ namespace topic{
         std::string name;
     };
     using Sem = std::unique_ptr<Semaphore>;
+    Sem SemMake(const std::string &name){
+        return std::make_unique<Semaphore>(name);
+    }
 
     class Lock{
     public:
@@ -174,17 +186,46 @@ namespace topic{
             this->name = name;
             this->msg_size = msg_size;
             this->msg_count = msg_count;
+            full_size = DATA_START + (msg_size + UI_SZ) * msg_count;
+            memory = ShmMake(name, full_size);
+            semN = SemMake(name);
+            for (int i = 0; i < msg_count; i++){
+                semR.push_back(SemMake(name));
+                semW.push_back(SemMake(name));
+            }
         }
         bool start(){
-            return true; // TODO: доделать
+            if (steady) return true; // TODO: доделать
+            if (!memory->exists()){
+                if (!memory->create()) return false;
+                if (!memory->open(false)) return false;
+                void *data = memory->data;
+                Header *
+            }
+        }
+        bool recreate(){
+            return true;
         }
         bool is_started(){
             return steady;
         }
-        bool ready, steady;
+        bool steady;
         Shm memory;
+        Sem semN;
+        std::vector<Sem> semW, semR;
+
+
+        struct Header{
+            ui msg_size;
+            ui msg_count;
+            ui writer_pos;
+        };
+        static const ui DATA_START = 32;
+        static const ui UI_SZ = sizeof(ui);
+        
         std::string name;
         ui msg_size, msg_count;
+        ui full_size;
     };
 }
 
