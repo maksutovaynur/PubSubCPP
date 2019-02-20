@@ -111,44 +111,84 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named PubSubCPP2
+# Target rules for targets named pubsub
 
 # Build rule for target.
-PubSubCPP2: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 PubSubCPP2
-.PHONY : PubSubCPP2
+pubsub: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 pubsub
+.PHONY : pubsub
 
 # fast build rule for target.
-PubSubCPP2/fast:
-	$(MAKE) -f CMakeFiles/PubSubCPP2.dir/build.make CMakeFiles/PubSubCPP2.dir/build
-.PHONY : PubSubCPP2/fast
+pubsub/fast:
+	$(MAKE) -f CMakeFiles/pubsub.dir/build.make CMakeFiles/pubsub.dir/build
+.PHONY : pubsub/fast
 
-main.o: main.cpp.o
+#=============================================================================
+# Target rules for targets named rmtopic
 
-.PHONY : main.o
+# Build rule for target.
+rmtopic: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 rmtopic
+.PHONY : rmtopic
+
+# fast build rule for target.
+rmtopic/fast:
+	$(MAKE) -f CMakeFiles/rmtopic.dir/build.make CMakeFiles/rmtopic.dir/build
+.PHONY : rmtopic/fast
+
+pubsub.o: pubsub.cpp.o
+
+.PHONY : pubsub.o
 
 # target to build an object file
-main.cpp.o:
-	$(MAKE) -f CMakeFiles/PubSubCPP2.dir/build.make CMakeFiles/PubSubCPP2.dir/main.cpp.o
-.PHONY : main.cpp.o
+pubsub.cpp.o:
+	$(MAKE) -f CMakeFiles/pubsub.dir/build.make CMakeFiles/pubsub.dir/pubsub.cpp.o
+.PHONY : pubsub.cpp.o
 
-main.i: main.cpp.i
+pubsub.i: pubsub.cpp.i
 
-.PHONY : main.i
+.PHONY : pubsub.i
 
 # target to preprocess a source file
-main.cpp.i:
-	$(MAKE) -f CMakeFiles/PubSubCPP2.dir/build.make CMakeFiles/PubSubCPP2.dir/main.cpp.i
-.PHONY : main.cpp.i
+pubsub.cpp.i:
+	$(MAKE) -f CMakeFiles/pubsub.dir/build.make CMakeFiles/pubsub.dir/pubsub.cpp.i
+.PHONY : pubsub.cpp.i
 
-main.s: main.cpp.s
+pubsub.s: pubsub.cpp.s
 
-.PHONY : main.s
+.PHONY : pubsub.s
 
 # target to generate assembly for a file
-main.cpp.s:
-	$(MAKE) -f CMakeFiles/PubSubCPP2.dir/build.make CMakeFiles/PubSubCPP2.dir/main.cpp.s
-.PHONY : main.cpp.s
+pubsub.cpp.s:
+	$(MAKE) -f CMakeFiles/pubsub.dir/build.make CMakeFiles/pubsub.dir/pubsub.cpp.s
+.PHONY : pubsub.cpp.s
+
+rmtopic.o: rmtopic.cpp.o
+
+.PHONY : rmtopic.o
+
+# target to build an object file
+rmtopic.cpp.o:
+	$(MAKE) -f CMakeFiles/rmtopic.dir/build.make CMakeFiles/rmtopic.dir/rmtopic.cpp.o
+.PHONY : rmtopic.cpp.o
+
+rmtopic.i: rmtopic.cpp.i
+
+.PHONY : rmtopic.i
+
+# target to preprocess a source file
+rmtopic.cpp.i:
+	$(MAKE) -f CMakeFiles/rmtopic.dir/build.make CMakeFiles/rmtopic.dir/rmtopic.cpp.i
+.PHONY : rmtopic.cpp.i
+
+rmtopic.s: rmtopic.cpp.s
+
+.PHONY : rmtopic.s
+
+# target to generate assembly for a file
+rmtopic.cpp.s:
+	$(MAKE) -f CMakeFiles/rmtopic.dir/build.make CMakeFiles/rmtopic.dir/rmtopic.cpp.s
+.PHONY : rmtopic.cpp.s
 
 # Help Target
 help:
@@ -157,11 +197,15 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... rebuild_cache"
-	@echo "... PubSubCPP2"
 	@echo "... edit_cache"
-	@echo "... main.o"
-	@echo "... main.i"
-	@echo "... main.s"
+	@echo "... pubsub"
+	@echo "... rmtopic"
+	@echo "... pubsub.o"
+	@echo "... pubsub.i"
+	@echo "... pubsub.s"
+	@echo "... rmtopic.o"
+	@echo "... rmtopic.i"
+	@echo "... rmtopic.s"
 .PHONY : help
 
 
