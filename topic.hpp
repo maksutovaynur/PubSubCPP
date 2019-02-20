@@ -51,7 +51,7 @@ namespace topic{
                 fstat(fd, &info);
                 if (info.st_size != size) {
                     if (!ign_size) return false;
-                    else size = info.st_size;
+                    else size = (ui)info.st_size;
                 }
             }
             fd = shm_open(name.c_str(), O_RDWR, 0777);
@@ -178,8 +178,44 @@ namespace topic{
 
     class Topic{
     public:
-        static std::unique_ptr<Topic> spawn(const std::string &name){
-            return nullptr; // TODO: доделать
+        using Top = std::unique_ptr<Topic>;
+        static Top spawn(const std::string &name, ui msg_size, ui msg_count){
+            auto t = std::make_unique<Topic> (name, msg_size, msg_count);
+            t->start(false, false, false);
+            return t;
+        }
+        static Top spawn(const std::string &name, ui msg_size){
+            auto t = std::make_unique<Topic> (name, msg_size, 0);
+            t->start(false, false, true);
+            return t;
+        }
+        static Top spawn_create(const std::string &name, ui msg_size, ui msg_count){
+            auto t = std::make_unique<Topic> (name, msg_size, msg_count);
+            t->start(true, false, false);
+            return t;
+        }
+        static Top spawn(const std::string &name){
+            auto t = std::make_unique<Topic> (name, 0, 0);
+            t->start(false, true, true);
+            return t;
+        }
+        void pub(void *msg){
+
+        }
+        void sub(void *msg){
+
+        }
+        ui get_msg_size(){
+            return msg_size;
+        }
+        ui get_msg_count(){
+            return msg_count;
+        }
+        ui get_shmem_size(){
+            return full_size;
+        }
+        ui is_ready(){
+            return steady;
         }
     private:
         Topic(const std::string &name, ui msg_size, ui msg_count){
@@ -188,31 +224,55 @@ namespace topic{
             this->msg_count = msg_count;
             full_size = DATA_START + (msg_size + UI_SZ) * msg_count;
             memory = ShmMake(name, full_size);
-            semN = SemMake(name);
-            for (int i = 0; i < msg_count; i++){
-                semR.push_back(SemMake(name));
-                semW.push_back(SemMake(name));
-            }
         }
-        bool start(bool create, bool ign_count){
-            if (steady) return true; // TODO: доделать
+        bool start(bool create, bool ign_size, bool ign_count){
+            if (steady) return true;
+            void * data;
             if (!memory->exists()){
                 if (!create) return false;
                 if (!memory->create()) return false;
                 if (!memory->open(false)) return false;
-                void *data = memory->data;
+                data = memory->data;
                 auto hdr = (Header *) data;
                 hdr->msg_count = msg_count;
                 hdr->msg_size = msg_size;
                 hdr->writer_pos = 0;
                 WposSRC = &(hdr->writer_pos);
+                Rpos = 0;
+            }else{
+                if (!memory->open(true)) return false;
+                data = memory->data;
+                auto hdr = (Header *) data;
+                if (msg_size != hdr->msg_size) {
+                    if (!ign_size) return false;
+                    msg_size = hdr->msg_size;
+                }
+                if (msg_count != hdr->msg_count){
+                    if (!ign_count) return false;
+                    msg_count = hdr->msg_count;
+                }
+                WposSRC = &(hdr->writer_pos);
+                Rpos = 0;
             }
-        }
-        bool recreate(){
+            full_size = memory->size;
+            semN = SemMake(name + "--n"); semN->remove(); if (!semN->create(0)) return false;
+            semR.clear();semW.clear();
+            for (int i = 0; i < msg_count; i++){
+                semR.push_back(SemMake(name + "--r" + std::to_string(i)));
+                semW.push_back(SemMake(name + "--w" + std::to_string(i)));
+            }
+            if (!semR[0]->create(1) || !semW[0]->create(0)) return false;
+            for (int i = 1; i < msg_count; i++){
+                semR[i]->remove(); semW[i]->remove();
+                if (!semR[i]->create(1) || !semW[i]->create(1)) return false;
+            }
+            for (int i = 0; i < msg_count; i++){
+                if (!semR[i]->open() || !semW[i]->open()) return false;
+            }
             return true;
         }
-        bool is_started(){
-            return steady;
+        bool stop(){
+            return true; // TODO: Здесь пока ничего нет
         }
         bool steady;
         Shm memory;
