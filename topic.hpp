@@ -98,7 +98,7 @@ namespace topic {
 
     class Semaphore {
     public:
-        Semaphore(const std::string &name) {
+        explicit Semaphore(const std::string &name) {
             this->name = name;
             this->sem = SEM_FAILED;
         }
@@ -153,7 +153,7 @@ namespace topic {
 
     class Lock {
     public:
-        Lock(sem_t *sem) {
+        explicit Lock(sem_t *sem) {
             this->sem = sem;
             sem_wait(sem);
         }
@@ -204,7 +204,7 @@ namespace topic {
 
     class SemaphoreRange {
     public:
-        SemaphoreRange(ui count) {
+        explicit SemaphoreRange(ui count) {
             this->count = count;
             sem = (sem_t **) malloc(count * sizeof(sem_t *));
         }
@@ -281,6 +281,10 @@ namespace topic {
 
         bool is_ready() {
             return steady;
+        }
+
+        const std::string & get_name(){
+            return name;
         }
 
         Topic(const std::string &name, ui msg_size, ui msg_count) {
