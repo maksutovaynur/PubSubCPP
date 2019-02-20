@@ -20,7 +20,12 @@
 #define _enable_std_make_unique
 
 namespace topic {
-    using ui = unsigned int;
+    using ui = unsigned long int;
+
+    bool Err(const std::string &str){
+        std::cout << str << std::endl;
+        return false;
+    }
 
     class SharedMemory {
     public:
@@ -42,20 +47,23 @@ namespace topic {
         bool create() {
             fd = shm_open(name.c_str(), O_RDWR | O_CREAT | O_EXCL, 0777);
             if (fd < 0) return false;
-            ftruncate(fd, size);
+            std::cout << "Truncate " << size << std::endl;
+            ftruncate(fd, static_cast<off_t>(size));
             ::close(fd);
             return true;
         }
 
         bool open(bool ign_size) {
             if (MAP_FAILED != data) return true;
-            if (!exists()) return false;
+            if (!exists()) return Err("Shared memory doesn't exist");
             {
                 struct stat info;
                 fstat(fd, &info);
-                if (info.st_size != size) {
-                    if (!ign_size) return false;
-                    else size = (ui) info.st_size;
+                ui old_size = static_cast<ui>(info.st_size);
+                printf("Was %ld, old %lu, new %lu\n", info.st_size, old_size, size);
+                if (old_size !=size) {
+                    if (!ign_size) return Err("Shared memory size doesn't match");
+                    else size = old_size;
                 }
             }
             fd = shm_open(name.c_str(), O_RDWR, 0777);
@@ -223,14 +231,15 @@ namespace topic {
         return std::make_unique<SemaphoreRange>(count);
     }
 
-    bool Err(const std::string &str){
-        std::cout << str << std::endl;
-        return false;
-    }
 
     class Topic {
     public:
         using Top = std::unique_ptr<Topic>;
+
+        static bool remove(const std::string &name){
+            auto t = std::make_unique<Topic>(name, 0, 0);
+            return t->remove();
+        }
 
         static Top spawn(const std::string &name, ui msg_size, ui msg_count) {
             auto t = std::make_unique<Topic>(name, msg_size, msg_count);
@@ -252,6 +261,7 @@ namespace topic {
 
         static Top spawn(const std::string &name) {
             auto t = std::make_unique<Topic>(name, 0, 0);
+            if (t == nullptr) return nullptr;
             if (t->start(false, true, true)) return t;
             else return nullptr;
         }
@@ -292,18 +302,18 @@ namespace topic {
             this->msg_size = msg_size;
             this->msg_count = msg_count;
             full_size = DATA_START + (msg_size + UI_SZ) * msg_count;
+            std::cout << "Full size " << full_size << std::endl;
             memory = ShmMake(name, full_size);
         }
 
+    private:
         bool remove(){
-            semN->remove();
-            for (int i = 0; i < msg_count; i++) semW[i]->remove();
-            for (int i = 0; i < msg_count; i++) semR[i]->remove();
-            memory->remove();
+            if (semN != nullptr) semN->remove();
+            for (auto i = semW.begin(); i != semW.end(); i++) i->get()->remove();
+            for (auto i = semR.begin(); i != semR.end(); i++) i->get()->remove();
+            if (memory != nullptr) memory->remove();
             return true;
         }
-
-    private:
         bool start(bool create, bool ign_size, bool ign_count) {
             if (steady) return true;
             char *data;
@@ -333,6 +343,8 @@ namespace topic {
                 WposSRC = &(hdr->writer_pos);
                 Rpos = 0;
             }
+            if (msg_size <= 0) return Err("Message size should be > 0");
+            if (msg_count <= 0) return Err("Message count should be > 0");
             full_size = memory->size;
             semN = SemMake(name + "--n");
             semN->remove();

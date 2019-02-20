@@ -12,12 +12,10 @@ void signal_handler(int i){
     interrupted = true;
 }
 
+std::string TOPIC_NAME = "/clap0";
+
 int main() {
     signal(SIGINT, signal_handler);
-    auto t = topic::Topic::spawn("/clap0");
-    std::cout << "Started topic: " << (bool)(t != nullptr) << std::endl;
-    if (t == nullptr) return 0;
-    t->remove();
-    std::cout << "Removed topic " << t->get_name() << std::endl;
+    if (topic::Topic::remove(TOPIC_NAME)) std::cout << "Removed topic " << TOPIC_NAME << std::endl;
     return 0;
 }
