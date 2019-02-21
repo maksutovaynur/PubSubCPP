@@ -6,14 +6,8 @@
 
 const unsigned int MSG_SIZE = 256;
 char msg[MSG_SIZE + 1];
-volatile bool interrupted;
-
-void signal_handler(int i){
-    interrupted = true;
-}
 
 int main() {
-    signal(SIGINT, signal_handler);
     auto t = topic::Topic::spawn_create("/clap0", MSG_SIZE, 10);
     std::cout << "Started topic: " << (bool)(t != nullptr) << std::endl << "Enter 0 to pub, 1 to sub" << std::endl;
     if (t == nullptr) return 0;
@@ -24,13 +18,14 @@ int main() {
         int counter = 0;
         std::cout << "Enter string to pub" << std::endl;
         std::cin >> m_base;
-        while (!interrupted) {
+        while (!topic::interrupted) {
             sprintf(msg, "%s%d", m_base.c_str(), counter++);
             t->pub(msg);
+            std::cout << msg << "|end" << std::endl;
             sleep(1);
         }
     }else{
-        while (!interrupted){
+        while (!topic::interrupted){
             t->sub(msg);
             std::cout << msg << "|end" << std::endl;
         }

@@ -16,6 +16,7 @@ std::string TOPIC_NAME = "/clap0";
 
 int main() {
     signal(SIGINT, signal_handler);
+    std::cout << topic::Topic::UI_SZ << "=ui|hdr=" << topic::Topic::HDR_SZ << std::endl;
     if (topic::Topic::remove(TOPIC_NAME)) std::cout << "Removed topic " << TOPIC_NAME << std::endl;
     return 0;
 }
