@@ -250,12 +250,25 @@ namespace tpc {
     SemRange SemRangeMake(ui count) {
         return std::make_unique<SemaphoreRange>(count);
     }
+    volatile bool interrupted;
+    static void signal_handler(int i) {
+        interrupted = true;
+    }
+    void init_system() {
+        interrupted = false;
+        signal(SIGINT, signal_handler);
+        signal(SIGQUIT, signal_handler);
+        signal(SIGTERM, signal_handler);
+        signal(SIGKILL, signal_handler);
+        signal(SIGSTOP, signal_handler);
+    }
+
 }
 
 class Topic {
 public:
     static bool was_interrupted() {
-        return interrupted;
+        return tpc::interrupted;
     }
 
     using Top = std::unique_ptr<Topic>;
@@ -323,7 +336,7 @@ public:
     }
 
     Topic(const std::string &name, ui msg_size, ui msg_count) {
-        init_system();
+        tpc::init_system();
         this->name = name;
         this->msg_size = msg_size;
         this->msg_count = msg_count;
@@ -343,21 +356,6 @@ public:
     static const ui UI_SZ = sizeof(ui);
     static const ui HDR_SZ = sizeof(Header);
 private:
-    static volatile bool interrupted;
-
-    static void signal_handler(int i) {
-        interrupted = true;
-    }
-
-    void init_system() {
-        ::Topic::interrupted = false;
-        signal(SIGINT, signal_handler);
-        signal(SIGQUIT, signal_handler);
-        signal(SIGTERM, signal_handler);
-        signal(SIGKILL, signal_handler);
-        signal(SIGSTOP, signal_handler);
-    }
-
     bool remove() {
         if (semN != nullptr) semN->remove();
         for (auto i = semW.begin(); i != semW.end(); i++) i->get()->remove();
@@ -412,6 +410,8 @@ private:
             }
             WposSRC = &(hdr->writer_pos);
             Rpos = 0;
+            Rcounters.clear();
+            for (int i = 0; i < msg_count; i++) Rcounters.push_back((ui *) (mpd + i * (msg_size + UI_SZ)));
         }
         if (msg_size <= 0) return tpc::Err("Message size should be > 0");
         if (msg_count <= 0) return tpc::Err("Message count should be > 0");
