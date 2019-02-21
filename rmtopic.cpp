@@ -6,17 +6,11 @@
 
 const unsigned int MSG_SIZE = 256;
 char msg[MSG_SIZE + 1];
-volatile bool interrupted;
 
-void signal_handler(int i){
-    interrupted = true;
-}
-
-std::string TOPIC_NAME = "/clap0";
+const std::string TOPIC_NAME = "/clap0";
 
 int main() {
-    signal(SIGINT, signal_handler);
-    std::cout << topic::Topic::UI_SZ << "=ui|hdr=" << topic::Topic::HDR_SZ << std::endl;
-    if (topic::Topic::remove(TOPIC_NAME)) std::cout << "Removed topic " << TOPIC_NAME << std::endl;
+    std::cout << Topic::UI_SZ << "=ui|hdr=" << Topic::HDR_SZ << std::endl;
+    if (Topic::remove(TOPIC_NAME)) std::cout << "Removed topic " << TOPIC_NAME << std::endl;
     return 0;
 }
