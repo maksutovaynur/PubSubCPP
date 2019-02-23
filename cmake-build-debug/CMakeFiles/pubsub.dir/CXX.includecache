@@ -1,0 +1,42 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/aynur/Repos/PubSubCPP/pubsub.cpp
+iostream
+-
+unistd.h
+-
+signal.h
+-
+topic.hpp
+/home/aynur/Repos/PubSubCPP/topic.hpp
+stdio.h
+-
+
+/home/aynur/Repos/PubSubCPP/topic.hpp
+sys/mman.h
+-
+sys/stat.h
+-
+semaphore.h
+-
+unistd.h
+-
+fcntl.h
+-
+string
+-
+cstring
+-
+memory
+-
+vector
+-
+cerrno
+-
+

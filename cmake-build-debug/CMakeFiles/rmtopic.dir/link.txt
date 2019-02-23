@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/rmtopic.dir/rmtopic.cpp.o  -o rmtopic /usr/lib/x86_64-linux-gnu/librt.so -lpthread 

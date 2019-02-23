@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/measure.dir/measure.cpp.o  -o measure /usr/lib/x86_64-linux-gnu/librt.so -lpthread 
