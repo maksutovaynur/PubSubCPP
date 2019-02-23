@@ -1,6 +1,7 @@
 #include <sys/mman.h>
 #include <sys/stat.h>
 #include <semaphore.h>
+#include <signal.h>
 #include <unistd.h>
 #include <fcntl.h>
 #include <string>
@@ -13,6 +14,7 @@
 #define DEBUG_MSG(str) do { std::cout << str << std::endl; } while( false )
 #else
 #define DEBUG_MSG(str) do { } while ( false )
+#endif // DEBUG MSG
 
 #ifndef PUBSUBCPP_TOPIC_H
 #define PUBSUBCPP_TOPIC_H
@@ -462,4 +464,3 @@ private:
 
 #endif //PUBSUBCPP2_TOPIC_H
 
-#endif // DEBUG MSG
