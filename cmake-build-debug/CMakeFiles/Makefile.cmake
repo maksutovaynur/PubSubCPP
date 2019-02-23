@@ -46,5 +46,6 @@ set(CMAKE_MAKEFILE_PRODUCTS
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/pubsub.dir/DependInfo.cmake"
+  "CMakeFiles/measure.dir/DependInfo.cmake"
   "CMakeFiles/rmtopic.dir/DependInfo.cmake"
   )

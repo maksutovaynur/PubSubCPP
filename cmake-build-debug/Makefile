@@ -124,6 +124,19 @@ pubsub/fast:
 .PHONY : pubsub/fast
 
 #=============================================================================
+# Target rules for targets named measure
+
+# Build rule for target.
+measure: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 measure
+.PHONY : measure
+
+# fast build rule for target.
+measure/fast:
+	$(MAKE) -f CMakeFiles/measure.dir/build.make CMakeFiles/measure.dir/build
+.PHONY : measure/fast
+
+#=============================================================================
 # Target rules for targets named rmtopic
 
 # Build rule for target.
@@ -135,6 +148,33 @@ rmtopic: cmake_check_build_system
 rmtopic/fast:
 	$(MAKE) -f CMakeFiles/rmtopic.dir/build.make CMakeFiles/rmtopic.dir/build
 .PHONY : rmtopic/fast
+
+measure.o: measure.cpp.o
+
+.PHONY : measure.o
+
+# target to build an object file
+measure.cpp.o:
+	$(MAKE) -f CMakeFiles/measure.dir/build.make CMakeFiles/measure.dir/measure.cpp.o
+.PHONY : measure.cpp.o
+
+measure.i: measure.cpp.i
+
+.PHONY : measure.i
+
+# target to preprocess a source file
+measure.cpp.i:
+	$(MAKE) -f CMakeFiles/measure.dir/build.make CMakeFiles/measure.dir/measure.cpp.i
+.PHONY : measure.cpp.i
+
+measure.s: measure.cpp.s
+
+.PHONY : measure.s
+
+# target to generate assembly for a file
+measure.cpp.s:
+	$(MAKE) -f CMakeFiles/measure.dir/build.make CMakeFiles/measure.dir/measure.cpp.s
+.PHONY : measure.cpp.s
 
 pubsub.o: pubsub.cpp.o
 
@@ -199,7 +239,11 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... pubsub"
+	@echo "... measure"
 	@echo "... rmtopic"
+	@echo "... measure.o"
+	@echo "... measure.i"
+	@echo "... measure.s"
 	@echo "... pubsub.o"
 	@echo "... pubsub.i"
 	@echo "... pubsub.s"

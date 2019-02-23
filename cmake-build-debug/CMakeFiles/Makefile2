@@ -66,7 +66,7 @@ CMAKE_BINARY_DIR = /home/aynur/Repos/PubSubCPP/cmake-build-debug
 CMakeFiles/pubsub.dir/all:
 	$(MAKE) -f CMakeFiles/pubsub.dir/build.make CMakeFiles/pubsub.dir/depend
 	$(MAKE) -f CMakeFiles/pubsub.dir/build.make CMakeFiles/pubsub.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/aynur/Repos/PubSubCPP/cmake-build-debug/CMakeFiles --progress-num=1,2 "Built target pubsub"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/aynur/Repos/PubSubCPP/cmake-build-debug/CMakeFiles --progress-num=3,4 "Built target pubsub"
 .PHONY : CMakeFiles/pubsub.dir/all
 
 # Include target in all.
@@ -97,13 +97,50 @@ clean: CMakeFiles/pubsub.dir/clean
 .PHONY : clean
 
 #=============================================================================
+# Target rules for target CMakeFiles/measure.dir
+
+# All Build rule for target.
+CMakeFiles/measure.dir/all:
+	$(MAKE) -f CMakeFiles/measure.dir/build.make CMakeFiles/measure.dir/depend
+	$(MAKE) -f CMakeFiles/measure.dir/build.make CMakeFiles/measure.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/aynur/Repos/PubSubCPP/cmake-build-debug/CMakeFiles --progress-num=1,2 "Built target measure"
+.PHONY : CMakeFiles/measure.dir/all
+
+# Include target in all.
+all: CMakeFiles/measure.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/measure.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/aynur/Repos/PubSubCPP/cmake-build-debug/CMakeFiles 2
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/measure.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/aynur/Repos/PubSubCPP/cmake-build-debug/CMakeFiles 0
+.PHONY : CMakeFiles/measure.dir/rule
+
+# Convenience name for target.
+measure: CMakeFiles/measure.dir/rule
+
+.PHONY : measure
+
+# clean rule for target.
+CMakeFiles/measure.dir/clean:
+	$(MAKE) -f CMakeFiles/measure.dir/build.make CMakeFiles/measure.dir/clean
+.PHONY : CMakeFiles/measure.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/measure.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
 # Target rules for target CMakeFiles/rmtopic.dir
 
 # All Build rule for target.
 CMakeFiles/rmtopic.dir/all:
 	$(MAKE) -f CMakeFiles/rmtopic.dir/build.make CMakeFiles/rmtopic.dir/depend
 	$(MAKE) -f CMakeFiles/rmtopic.dir/build.make CMakeFiles/rmtopic.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/aynur/Repos/PubSubCPP/cmake-build-debug/CMakeFiles --progress-num=3,4 "Built target rmtopic"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/aynur/Repos/PubSubCPP/cmake-build-debug/CMakeFiles --progress-num=5,6 "Built target rmtopic"
 .PHONY : CMakeFiles/rmtopic.dir/all
 
 # Include target in all.
