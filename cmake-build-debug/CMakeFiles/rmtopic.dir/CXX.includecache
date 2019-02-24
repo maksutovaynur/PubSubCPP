@@ -25,6 +25,8 @@ sys/stat.h
 -
 semaphore.h
 -
+signal.h
+-
 unistd.h
 -
 fcntl.h
