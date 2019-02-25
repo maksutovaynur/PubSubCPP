@@ -1,7 +1,7 @@
 #include <sys/mman.h>
 #include <sys/stat.h>
 #include <semaphore.h>
-#include <signal.h>
+#include <csignal>
 #include <unistd.h>
 #include <fcntl.h>
 #include <string>
@@ -173,9 +173,7 @@ namespace tpc {
     public:
         explicit Lock(sem_t *sem) {
             this->sem = sem;
-            if (-1 == sem_wait(sem)){
-                locked = false;
-            } else locked = true;
+            locked = -1 != sem_wait(sem);
         }
 
         ~Lock() {
@@ -393,6 +391,11 @@ public:
     static const ui UI_SZ = sizeof(ui);
     static const ui HDR_SZ = sizeof(Header);
 private:
+    ui getWpos(){
+        auto l = tpc::Lock(nlock);
+        ui pos = *WposSRC;
+        return pos;
+    }
     bool remove() {
         if (semN != nullptr) semN->remove();
         for (auto i = semW.begin(); i != semW.end(); i++) i->get()->remove();
@@ -456,6 +459,7 @@ private:
         open_sems();
         data.clear();
         for (int i = 0; i < msg_count; i++) data.push_back(mpd + i * (msg_size + UI_SZ) + UI_SZ);
+        Rpos = getWpos();
         return true;
     }
 
