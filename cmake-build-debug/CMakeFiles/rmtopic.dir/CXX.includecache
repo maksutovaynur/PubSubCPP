@@ -9,10 +9,6 @@
 /home/aynur/Repos/PubSubCPP/rmtopic.cpp
 iostream
 -
-unistd.h
--
-csignal
--
 topic.hpp
 /home/aynur/Repos/PubSubCPP/topic.hpp
 cstdio

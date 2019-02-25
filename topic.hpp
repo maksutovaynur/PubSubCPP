@@ -22,6 +22,7 @@
 using ui = unsigned long int;
 
 namespace tpc {
+    volatile thread_local bool interrupted;
     bool Err(const std::string &str) {
         std::cout << str << std::endl;
         return false;
@@ -172,13 +173,17 @@ namespace tpc {
     public:
         explicit Lock(sem_t *sem) {
             this->sem = sem;
-            sem_wait(sem);
+            if (-1 == sem_wait(sem)){
+                locked = false;
+            } else locked = true;
         }
 
         ~Lock() {
-            sem_post(sem);
+            if (locked) sem_post(sem);
+            locked = false;
         }
 
+        bool locked = false;
         sem_t *sem;
     };
 
@@ -192,12 +197,17 @@ namespace tpc {
             DEBUG_MSG(" Rcounter(c0): " << *counter);
             if (1 == ++*counter) {
                 DEBUG_MSG("1reader");
-                sem_wait(cond);
-            }
+                if (-1 == sem_wait(cond)) {
+                    --*counter;
+                    locked = false;
+                } else locked = true;
+            } else locked = true;
+
             DEBUG_MSG("Rcounter(c1): " << *counter);
         }
 
         ~ReadersLock() {
+            if (!locked) return;
             auto l = Lock(sem);
             DEBUG_MSG("Rcounter(d0): " << *counter);
             if (0 == --*counter) {
@@ -209,6 +219,7 @@ namespace tpc {
 
         sem_t *sem, *cond;
         ui *counter;
+        bool locked = false;
     };
 
     class WriterLock {
@@ -220,14 +231,20 @@ namespace tpc {
             DEBUG_MSG("Writer pos: " << pos);
             *counter %= lim_count;
             DEBUG_MSG("Next: " << *counter);
-            sem_wait(lim[*counter]);
+            if (-1 == sem_wait(lim[*counter])){
+                (*counter) --;
+                *counter %= lim_count;
+                pos = *counter;
+                locked = false;
+            } else locked = true;
         }
 
         ~WriterLock() {
             DEBUG_MSG("Writer sem_post:" << pos);
-            sem_post(lim[pos]);
+            if (locked) sem_post(lim[pos]);
         }
 
+        bool locked = false;
         sem_t **lim;
         ui pos;
     };
@@ -252,9 +269,10 @@ namespace tpc {
     SemRange SemRangeMake(ui count) {
         return std::make_unique<SemaphoreRange>(count);
     }
-    volatile bool interrupted;
     static void signal_handler(int i) {
         interrupted = true;
+        DEBUG_MSG("signal: "+std::to_string(i));
+        //raise(SIGINT);
     }
     void init_system() {
         interrupted = false;
@@ -263,6 +281,11 @@ namespace tpc {
         signal(SIGTERM, signal_handler);
         signal(SIGKILL, signal_handler);
         signal(SIGSTOP, signal_handler);
+        siginterrupt(SIGINT, 1);
+        siginterrupt(SIGQUIT, 1);
+        siginterrupt(SIGTERM, 1);
+        siginterrupt(SIGKILL, 1);
+        siginterrupt(SIGSTOP, 1);
     }
 
 }
@@ -305,16 +328,28 @@ public:
         else return nullptr;
     }
 
-    void pub(void *msg) {
+    bool pub(void *msg) {
+        if (tpc::interrupted) return false;
         auto l = tpc::WriterLock(nlock, WposSRC, wlocks->sem, msg_count);
+        if (!l.locked){
+//            if (tpc::interrupted) exit(0);
+            return false;
+        }
         Wpos = l.pos;
         memcpy(data[Wpos], msg, msg_size);
+        return true;
     }
 
-    void sub(void *msg) {
+    bool sub(void *msg) {
+        if (tpc::interrupted) return false;
         auto l = tpc::ReadersLock(rlocks->sem[Rpos], Rcounters[Rpos], wlocks->sem[Rpos]);
+        if (!l.locked){
+//            if (tpc::interrupted) exit(0);
+            return false;
+        }
         memcpy(msg, data[Rpos], msg_size);
         Rpos = (Rpos + 1) % msg_count;
+        return true;
     }
 
     ui get_msg_size() {

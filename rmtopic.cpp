@@ -1,16 +1,12 @@
 #include <iostream>
-#include <unistd.h>
-#include <csignal>
 #include "topic.hpp"
 #include <cstdio>
 
-const unsigned int MSG_SIZE = 256;
-char msg[MSG_SIZE + 1];
 
-const std::string TOPIC_NAME = "/clap0";
-
-int main() {
+int main(int argc, char** args) {
+    std::string name = "/clap0";
+    if (argc > 1) name = std::string(args[1]);
     std::cout << Topic::UI_SZ << "=ui|hdr=" << Topic::HDR_SZ << std::endl;
-    if (Topic::remove(TOPIC_NAME)) std::cout << "Removed topic " << TOPIC_NAME << std::endl;
+    if (Topic::remove(name)) std::cout << "Removed topic " << name << std::endl;
     return 0;
 }
