@@ -1,4 +1,4 @@
-#define DEBUG 1
+//#define DEBUG 1
 #include <iostream>
 #include "topic.hpp"
 #include <stdio.h>

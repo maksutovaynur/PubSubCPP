@@ -23,7 +23,7 @@ sys/stat.h
 -
 semaphore.h
 -
-signal.h
+csignal
 -
 unistd.h
 -
