@@ -370,6 +370,7 @@ public:
         return name;
     }
 
+private:
     Topic(const std::string &name, ui msg_size, ui msg_count) {
         tpc::init_system();
         this->name = name;
@@ -390,7 +391,7 @@ public:
     static const ui DATA_START = 32;
     static const ui UI_SZ = sizeof(ui);
     static const ui HDR_SZ = sizeof(Header);
-private:
+
     ui getWpos(){
         auto l = tpc::Lock(nlock);
         ui pos = *WposSRC;
