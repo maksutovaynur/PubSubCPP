@@ -13,7 +13,7 @@ Safe pointer type for Topic object.
 Removes existing topic from OS (including shared memory and semaphores)
 
 `static Topic::TopPtr Topic::spawn(const std::string &name, ui msg_size, ui msg_count)`
-Creates `Topic` object to manipulate topic.
+    Creates `Topic` object to manipulate topic.
 Returns `nullptr` if topic with this `name` doesn't exist.
 Returns also `nullptr` if given `msg_size`, `msg_count` don't match corresponding parameters of existing topic.
 
