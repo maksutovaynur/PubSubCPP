@@ -6,15 +6,15 @@ C++ Pub-Sub system for message interchange between processes
 Create `Topic` object
 -----
 
-`static TopPtr spawn(const std::string &name)`
+- `static TopPtr spawn(const std::string &name)`
 
 Creates `Topic` object to manipulate topic.
 
 Returns `nullptr` if topic with this `name` doesn't exist.
 
---
 
-`static Topic::TopPtr Topic::spawn(const std::string &name, ui msg_size)`
+
+- `static Topic::TopPtr Topic::spawn(const std::string &name, ui msg_size)`
 
 Creates `Topic` object to manipulate topic.
 
@@ -22,9 +22,7 @@ Returns `nullptr` if topic with this `name` doesn't exist.
 
 Returns also `nullptr` if given `msg_size` doesn't match corresponding parameter of existing topic.
 
--
-
-`static Topic::TopPtr Topic::spawn(const std::string &name, ui msg_size, ui msg_count)`
+- `static Topic::TopPtr Topic::spawn(const std::string &name, ui msg_size, ui msg_count)`
 
 Creates `Topic` object to manipulate topic.
 
