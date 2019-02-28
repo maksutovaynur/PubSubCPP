@@ -3,8 +3,6 @@
 C++ Pub-Sub system for message interchange between processes
 
 ### Create `Topic` object
------
-
 - `static TopPtr spawn(const std::string &name)`
 
 Creates `Topic` object to manipulate topic.
