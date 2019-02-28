@@ -2,7 +2,11 @@
 
 C++ Pub-Sub system for message interchange between processes
 
-### Create `Topic` object
+
+API
+-----
+
+#### Create `Topic` object
 - `static TopPtr spawn(const std::string &name)`
 
 Creates `Topic` object to manipulate topic.
@@ -28,8 +32,7 @@ Returns `nullptr` if topic with this `name` doesn't exist.
 Returns also `nullptr` if given `msg_size`, `msg_count` don't match corresponding parameters of existing topic.
 
 
-### Create and remove topic in OS
------
+#### Create and remove topic in OS
 
 - `static TopPtr spawn_create(const std::string &name, ui msg_size, ui msg_count)`
 
@@ -43,8 +46,7 @@ Returns `nullptr` if given `msg_size`, `msg_count` don't match corresponding par
 
 Removes existing topic from OS (including shared memory and semaphores)
 
-### Publish and subscribe
------
+#### Publish and subscribe
     
 - `bool Topic::pub(void *msg)`
 
@@ -60,8 +62,7 @@ Returns `false` if read was unsuccessful (e.g. there was encountered lock error 
 
 
 
-### Check `Topic` and system info
------
+#### Check `Topic` and system info
 
 - `static bool Topic::was_interrupted()`
 
@@ -91,6 +92,57 @@ Returns name of topic.
 
 - `Topic::TopPtr [= std::unique_ptr<Topic>]`
 
-Safe pointer type for Topic object.
+Safe pointer type for `Topic` object.
 
-`
+
+Example usage
+-----
+
+#### Remove topic
+
+    #include <iostream>
+    #include "topic.hpp"
+
+    int main(int argc, char** args) {
+        std::string name = "/mytopic_name";
+        if (Topic::remove(name)) std::cout << "Removed topic " << name << std::endl;
+        return 0;
+    }
+    
+#### Create `Topic` object, publish and subscribe
+
+    #include <iostream>
+    #include <stdio.h>
+    #include "topic.hpp"
+    
+    const unsigned int MSG_SIZE = 256;
+    char msg[MSG_SIZE + 1];
+    
+    int main() {
+        auto t = Topic::spawn_create("/mytopic_name", MSG_SIZE, 10);
+        if (nullptr == t){
+            std::cout << "Cannot manipulate topic " << t.get_name() << std::endl;
+            return 0;
+        }
+        std::cout << "Enter 0 to pub, 1 to sub" << std::endl;
+        int i;
+        std::cin >> i;
+        if (i == 0){
+            std::string m_base;
+            int counter = 0;
+            std::cout << "Enter string to pub" << std::endl;
+            std::cin >> m_base;
+            while (!Topic::was_interrupted()) {
+                sprintf(msg, "%s%d", m_base.c_str(), counter++);
+                t->pub(msg);
+                std::cout << msg << "|end" << std::endl;
+                sleep(1);
+            }
+        }else{
+            while (!Topic::was_interrupted()){
+                t->sub(msg);
+                std::cout << msg << "|end" << std::endl;
+            }
+        }
+        return 0;
+    }

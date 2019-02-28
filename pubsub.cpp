@@ -1,6 +1,4 @@
 #include <iostream>
-#include <unistd.h>
-#include <signal.h>
 #include "topic.hpp"
 #include <stdio.h>
 
@@ -8,7 +6,7 @@ const unsigned int MSG_SIZE = 256;
 char msg[MSG_SIZE + 1];
 
 int main() {
-    auto t = Topic::spawn_create("/clap0", MSG_SIZE, 10);
+    auto t = Topic::spawn_create("/mytopic_name", MSG_SIZE, 10);
     std::cout << "Started topic: " << (bool)(t != nullptr) << std::endl << "Enter 0 to pub, 1 to sub" << std::endl;
     if (t == nullptr) return 0;
     int i;

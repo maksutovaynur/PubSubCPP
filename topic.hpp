@@ -297,30 +297,30 @@ public:
     using TopPtr = std::unique_ptr<Topic>;
 
     static bool remove(const std::string &name) {
-        auto t = std::make_unique<Topic>(name, 0, 0);
+        std::unique_ptr<Topic> t(new Topic(name, 0, 0));
         return t->remove();
     }
 
     static TopPtr spawn(const std::string &name, ui msg_size, ui msg_count) {
-        auto t = std::make_unique<Topic>(name, msg_size, msg_count);
+        std::unique_ptr<Topic> t(new Topic(name, msg_size, msg_count));
         if (t->start(false, false, false)) return t;
         else return nullptr;
     }
 
     static TopPtr spawn(const std::string &name, ui msg_size) {
-        auto t = std::make_unique<Topic>(name, msg_size, 0);
+        std::unique_ptr<Topic> t(new Topic(name, msg_size, 0));
         if (t->start(false, false, true)) return t;
         else return nullptr;
     }
 
     static TopPtr spawn_create(const std::string &name, ui msg_size, ui msg_count) {
-        auto t = std::make_unique<Topic>(name, msg_size, msg_count);
+        std::unique_ptr<Topic> t(new Topic(name, msg_size, msg_count));
         if (t->start(true, false, false)) return t;
         else return nullptr;
     }
 
     static TopPtr spawn(const std::string &name) {
-        auto t = std::make_unique<Topic>(name, 0, 0);
+        std::unique_ptr<Topic> t(new Topic(name, 0, 0));
         if (t == nullptr) return nullptr;
         if (t->start(false, true, true)) return t;
         else return nullptr;
@@ -370,17 +370,6 @@ public:
         return name;
     }
 
-private:
-    Topic(const std::string &name, ui msg_size, ui msg_count) {
-        tpc::init_system();
-        this->name = name;
-        this->msg_size = msg_size;
-        this->msg_count = msg_count;
-        full_size = DATA_START + (msg_size + UI_SZ) * msg_count;
-        DEBUG_MSG("Full size " << full_size);
-        memory = tpc::ShmMake(name, full_size);
-        semCreate = tpc::SemMake(name + "--C");
-    }
 
     struct Header {
         ui msg_size;
@@ -392,6 +381,17 @@ private:
     static const ui UI_SZ = sizeof(ui);
     static const ui HDR_SZ = sizeof(Header);
 
+private:
+    Topic(const std::string &name, ui msg_size, ui msg_count) {
+        tpc::init_system();
+        this->name = name;
+        this->msg_size = msg_size;
+        this->msg_count = msg_count;
+        full_size = DATA_START + (msg_size + UI_SZ) * msg_count;
+        DEBUG_MSG("Full size " << full_size);
+        memory = tpc::ShmMake(name, full_size);
+        semCreate = tpc::SemMake(name + "--C");
+    }
     ui getWpos(){
         auto l = tpc::Lock(nlock);
         ui pos = *WposSRC;
