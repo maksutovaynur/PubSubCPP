@@ -62,7 +62,7 @@ Returns `false` if read was unsuccessful (e.g. there was encountered lock error 
 
 
 
-Check Topic and system info
+Check `Topic` and system info
 -----
 
 - `static bool Topic::was_interrupted()`
