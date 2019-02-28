@@ -2,14 +2,15 @@
 
 C++ Pub-Sub system for message interchange between processes
 
-### Create `Topic` object
+API
+-----
+
+#### Create `Topic` object
 - `static TopPtr spawn(const std::string &name)`
 
 Creates `Topic` object to manipulate topic.
 
 Returns `nullptr` if topic with this `name` doesn't exist.
-
-
 
 - `static Topic::TopPtr Topic::spawn(const std::string &name, ui msg_size)`
 
@@ -28,9 +29,7 @@ Returns `nullptr` if topic with this `name` doesn't exist.
 Returns also `nullptr` if given `msg_size`, `msg_count` don't match corresponding parameters of existing topic.
 
 
-### Create and remove topic in OS
------
-
+#### Create and remove topic in OS
 - `static TopPtr spawn_create(const std::string &name, ui msg_size, ui msg_count)`
 
 Creates `Topic` object to manipulate topic.
@@ -43,9 +42,7 @@ Returns `nullptr` if given `msg_size`, `msg_count` don't match corresponding par
 
 Removes existing topic from OS (including shared memory and semaphores)
 
-### Publish and subscribe
------
-    
+#### Publish and subscribe
 - `bool Topic::pub(void *msg)`
 
 Publishes given message to a topic. If write wasn't successful, returns `false`.
@@ -60,9 +57,7 @@ Returns `false` if read was unsuccessful (e.g. there was encountered lock error 
 
 
 
-### Check `Topic` and system info
------
-
+#### Check `Topic` and system info
 - `static bool Topic::was_interrupted()`
 
 Shows if thread received any interrupting signal (SIGINT, SIGKILL, SIGTERM, SIGQUIT).
@@ -93,4 +88,7 @@ Returns name of topic.
 
 Safe pointer type for Topic object.
 
-`
+
+Example usage
+-----
+
