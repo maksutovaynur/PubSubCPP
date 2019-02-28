@@ -3,8 +3,8 @@ C++ Pub-Sub system for message interchange between processes
 
 
 `static bool Topic::was_interrupted()`
-Shows if thread received any interrupting signal (SIGINT, SIGKILL, SIGTERM, SIGQUIT).
-Should be noramally used to shut program.
+##Shows if thread received any interrupting signal (SIGINT, SIGKILL, SIGTERM, SIGQUIT).
+#Should be noramally used to shut program.
 
 `Topic::TopPtr [= std::unique_ptr<Topic>]`
 Safe pointer type for Topic object.
