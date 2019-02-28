@@ -1,5 +1,4 @@
 # PubSubCPP
-===========
 
 C++ Pub-Sub system for message interchange between processes
 
@@ -34,7 +33,7 @@ Returns also `nullptr` if given `msg_size`, `msg_count` don't match correspondin
 Create and remove topic in OS
 -----
 
-`static TopPtr spawn_create(const std::string &name, ui msg_size, ui msg_count)`
+- `static TopPtr spawn_create(const std::string &name, ui msg_size, ui msg_count)`
 
 Creates `Topic` object to manipulate topic.
 
@@ -42,73 +41,57 @@ Creates new topic if topic with this `name` doesn't exist.
 
 Returns `nullptr` if given `msg_size`, `msg_count` don't match corresponding parameters of existing topic.
 
--
-
-`static bool Topic::remove(const std::string &name)`
+- `static bool Topic::remove(const std::string &name)`
 
 Removes existing topic from OS (including shared memory and semaphores)
 
 Publish and subscribe
 -----
     
-`bool Topic::pub(void *msg)`
+- `bool Topic::pub(void *msg)`
 
 Publishes given message to a topic. If write wasn't successful, returns `false`.
 
-`* msg` should have at least `msg_size` of memory allocated. This function will only replace first `msg_size` bytes of memory, allocated with `* msg`.
+- `* msg` should have at least `msg_size` of memory allocated. This function will only replace first `msg_size` bytes of memory, allocated with `* msg`.
 
--
-
-`bool Topic::sub(void *msg)`
+- `bool Topic::sub(void *msg)`
 
 Takes one message from topic. Blocks current thread until new message, if topic is empty.
 
-Returnf `false` if read was unsuccessful (e.g. there was encountered lock error or SIGxxxx was catched by program.
+Returns `false` if read was unsuccessful (e.g. there was encountered lock error or SIGxxxx was catched by program.
 
 
 
 Check Topic and system info
 -----
 
-`static bool Topic::was_interrupted()`
+- `static bool Topic::was_interrupted()`
 
 Shows if thread received any interrupting signal (SIGINT, SIGKILL, SIGTERM, SIGQUIT).
 
 You should make your program normally shut down after `Topic::was_interrupted()` has `true` value.
 
--
-
-`unsigned long int Topic::get_msg_size()`
+- `unsigned long int Topic::get_msg_size()`
 
 Returns `msg_size` of topic.
 
--
-
-`unsigned long int Topic::get_msg_count()`
+- `unsigned long int Topic::get_msg_count()`
 
 Returns `msg_count` of topic. Means the maximum count of existing messages in shared memory. 
 
--
-
-`unsigned long int Topic::get_shmem_size()`
+- `unsigned long int Topic::get_shmem_size()`
 
 Returns the full size of shared memory, allocated for topic, including header and buffer for messages.
 
--
-
-`bool is_ready()`
+- `bool is_ready()`
 
 Returns `true` if topic is ready to publish or subscribe to topic. > Not useful
 
--
-
-`const std::string & Topic::get_name()`
+- `const std::string & Topic::get_name()`
 
 Returns name of topic.
 
--
-
-`Topic::TopPtr [= std::unique_ptr<Topic>]`
+- `Topic::TopPtr [= std::unique_ptr<Topic>]`
 
 Safe pointer type for Topic object.
 
