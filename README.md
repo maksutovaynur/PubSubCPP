@@ -12,7 +12,7 @@ Creates `Topic` object to manipulate topic.
 
 Returns `nullptr` if topic with this `name` doesn't exist.
 
--
+--
 
 `static Topic::TopPtr Topic::spawn(const std::string &name, ui msg_size)`
 
