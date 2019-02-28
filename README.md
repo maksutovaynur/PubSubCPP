@@ -2,7 +2,7 @@
 
 C++ Pub-Sub system for message interchange between processes
 
-Create `Topic` object
+### Create `Topic` object
 -----
 
 - `static TopPtr spawn(const std::string &name)`
@@ -30,7 +30,7 @@ Returns `nullptr` if topic with this `name` doesn't exist.
 Returns also `nullptr` if given `msg_size`, `msg_count` don't match corresponding parameters of existing topic.
 
 
-Create and remove topic in OS
+### Create and remove topic in OS
 -----
 
 - `static TopPtr spawn_create(const std::string &name, ui msg_size, ui msg_count)`
@@ -45,7 +45,7 @@ Returns `nullptr` if given `msg_size`, `msg_count` don't match corresponding par
 
 Removes existing topic from OS (including shared memory and semaphores)
 
-Publish and subscribe
+### Publish and subscribe
 -----
     
 - `bool Topic::pub(void *msg)`
@@ -62,7 +62,7 @@ Returns `false` if read was unsuccessful (e.g. there was encountered lock error 
 
 
 
-Check `Topic` and system info
+### Check `Topic` and system info
 -----
 
 - `static bool Topic::was_interrupted()`
