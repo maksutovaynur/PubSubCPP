@@ -1,5 +1,7 @@
 /home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/CMakeFiles/rebuild_cache.dir
 /home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/CMakeFiles/service_cli.dir
+/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/CMakeFiles/service_serv.dir
 /home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/CMakeFiles/rmtopic.dir
 /home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/CMakeFiles/measure.dir
 /home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/CMakeFiles/test.dir

@@ -65,6 +65,80 @@ CMAKE_SOURCE_DIR = /home/aynur/CLionProjects/PubSubCPP
 CMAKE_BINARY_DIR = /home/aynur/CLionProjects/PubSubCPP/cmake-build-debug
 
 #=============================================================================
+# Target rules for target CMakeFiles/service_cli.dir
+
+# All Build rule for target.
+CMakeFiles/service_cli.dir/all:
+	$(MAKE) -f CMakeFiles/service_cli.dir/build.make CMakeFiles/service_cli.dir/depend
+	$(MAKE) -f CMakeFiles/service_cli.dir/build.make CMakeFiles/service_cli.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/CMakeFiles --progress-num=11,12 "Built target service_cli"
+.PHONY : CMakeFiles/service_cli.dir/all
+
+# Include target in all.
+all: CMakeFiles/service_cli.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/service_cli.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/CMakeFiles 2
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/service_cli.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/CMakeFiles 0
+.PHONY : CMakeFiles/service_cli.dir/rule
+
+# Convenience name for target.
+service_cli: CMakeFiles/service_cli.dir/rule
+
+.PHONY : service_cli
+
+# clean rule for target.
+CMakeFiles/service_cli.dir/clean:
+	$(MAKE) -f CMakeFiles/service_cli.dir/build.make CMakeFiles/service_cli.dir/clean
+.PHONY : CMakeFiles/service_cli.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/service_cli.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/service_serv.dir
+
+# All Build rule for target.
+CMakeFiles/service_serv.dir/all:
+	$(MAKE) -f CMakeFiles/service_serv.dir/build.make CMakeFiles/service_serv.dir/depend
+	$(MAKE) -f CMakeFiles/service_serv.dir/build.make CMakeFiles/service_serv.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/CMakeFiles --progress-num=13,14 "Built target service_serv"
+.PHONY : CMakeFiles/service_serv.dir/all
+
+# Include target in all.
+all: CMakeFiles/service_serv.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/service_serv.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/CMakeFiles 2
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/service_serv.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/CMakeFiles 0
+.PHONY : CMakeFiles/service_serv.dir/rule
+
+# Convenience name for target.
+service_serv: CMakeFiles/service_serv.dir/rule
+
+.PHONY : service_serv
+
+# clean rule for target.
+CMakeFiles/service_serv.dir/clean:
+	$(MAKE) -f CMakeFiles/service_serv.dir/build.make CMakeFiles/service_serv.dir/clean
+.PHONY : CMakeFiles/service_serv.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/service_serv.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
 # Target rules for target CMakeFiles/rmtopic.dir
 
 # All Build rule for target.
@@ -145,7 +219,7 @@ clean: CMakeFiles/measure.dir/clean
 CMakeFiles/test.dir/all:
 	$(MAKE) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/depend
 	$(MAKE) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/CMakeFiles --progress-num=11,12 "Built target test"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/CMakeFiles --progress-num=15,16 "Built target test"
 .PHONY : CMakeFiles/test.dir/all
 
 # Include target in all.

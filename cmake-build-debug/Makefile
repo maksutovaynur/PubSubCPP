@@ -111,6 +111,32 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named service_cli
+
+# Build rule for target.
+service_cli: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 service_cli
+.PHONY : service_cli
+
+# fast build rule for target.
+service_cli/fast:
+	$(MAKE) -f CMakeFiles/service_cli.dir/build.make CMakeFiles/service_cli.dir/build
+.PHONY : service_cli/fast
+
+#=============================================================================
+# Target rules for targets named service_serv
+
+# Build rule for target.
+service_serv: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 service_serv
+.PHONY : service_serv
+
+# fast build rule for target.
+service_serv/fast:
+	$(MAKE) -f CMakeFiles/service_serv.dir/build.make CMakeFiles/service_serv.dir/build
+.PHONY : service_serv/fast
+
+#=============================================================================
 # Target rules for targets named rmtopic
 
 # Build rule for target.
@@ -323,6 +349,60 @@ service.cpp.s:
 	$(MAKE) -f CMakeFiles/service.dir/build.make CMakeFiles/service.dir/service.cpp.s
 .PHONY : service.cpp.s
 
+service_cli.o: service_cli.cpp.o
+
+.PHONY : service_cli.o
+
+# target to build an object file
+service_cli.cpp.o:
+	$(MAKE) -f CMakeFiles/service_cli.dir/build.make CMakeFiles/service_cli.dir/service_cli.cpp.o
+.PHONY : service_cli.cpp.o
+
+service_cli.i: service_cli.cpp.i
+
+.PHONY : service_cli.i
+
+# target to preprocess a source file
+service_cli.cpp.i:
+	$(MAKE) -f CMakeFiles/service_cli.dir/build.make CMakeFiles/service_cli.dir/service_cli.cpp.i
+.PHONY : service_cli.cpp.i
+
+service_cli.s: service_cli.cpp.s
+
+.PHONY : service_cli.s
+
+# target to generate assembly for a file
+service_cli.cpp.s:
+	$(MAKE) -f CMakeFiles/service_cli.dir/build.make CMakeFiles/service_cli.dir/service_cli.cpp.s
+.PHONY : service_cli.cpp.s
+
+service_serv.o: service_serv.cpp.o
+
+.PHONY : service_serv.o
+
+# target to build an object file
+service_serv.cpp.o:
+	$(MAKE) -f CMakeFiles/service_serv.dir/build.make CMakeFiles/service_serv.dir/service_serv.cpp.o
+.PHONY : service_serv.cpp.o
+
+service_serv.i: service_serv.cpp.i
+
+.PHONY : service_serv.i
+
+# target to preprocess a source file
+service_serv.cpp.i:
+	$(MAKE) -f CMakeFiles/service_serv.dir/build.make CMakeFiles/service_serv.dir/service_serv.cpp.i
+.PHONY : service_serv.cpp.i
+
+service_serv.s: service_serv.cpp.s
+
+.PHONY : service_serv.s
+
+# target to generate assembly for a file
+service_serv.cpp.s:
+	$(MAKE) -f CMakeFiles/service_serv.dir/build.make CMakeFiles/service_serv.dir/service_serv.cpp.s
+.PHONY : service_serv.cpp.s
+
 test.o: test.cpp.o
 
 .PHONY : test.o
@@ -358,6 +438,8 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
+	@echo "... service_cli"
+	@echo "... service_serv"
 	@echo "... rmtopic"
 	@echo "... measure"
 	@echo "... test"
@@ -379,6 +461,12 @@ help:
 	@echo "... service.o"
 	@echo "... service.i"
 	@echo "... service.s"
+	@echo "... service_cli.o"
+	@echo "... service_cli.i"
+	@echo "... service_cli.s"
+	@echo "... service_serv.o"
+	@echo "... service_serv.i"
+	@echo "... service_serv.s"
 	@echo "... test.o"
 	@echo "... test.i"
 	@echo "... test.s"
