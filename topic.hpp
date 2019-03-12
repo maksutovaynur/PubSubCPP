@@ -9,11 +9,12 @@
 #include <memory>
 #include <vector>
 #include <cerrno>
+#include "debug.hpp"
 
 #ifdef DEBUG
-#define DEBUG_MSG(str) do { std::cout << str << std::endl; } while( false )
+#define DEBUG_MSG(str, lev) do { if (lev & DEBUG > 0) std::cout << str << std::endl; } while( false )
 #else
-#define DEBUG_MSG(str) do { } while ( false )
+#define DEBUG_MSG(str, lev) do { } while ( false )
 #endif // DEBUG MSG
 
 #ifndef PUBSUBCPP_TOPIC_H
@@ -23,6 +24,7 @@ using ui = unsigned long int;
 
 namespace tpc {
     volatile thread_local bool interrupted;
+
     bool Err(const std::string &str) {
         std::cout << str << std::endl;
         return false;
@@ -48,7 +50,7 @@ namespace tpc {
         bool create() {
             fd = shm_open(name.c_str(), O_RDWR | O_CREAT | O_EXCL, 0777);
             if (fd < 0) return false;
-            DEBUG_MSG("Truncate " << size);
+            DEBUG_MSG("Truncate " << size, DF2);
             ftruncate(fd, size);
             ::close(fd);
             return true;
@@ -129,7 +131,7 @@ namespace tpc {
             return true;
         }
 
-        bool open_create(int val){
+        bool open_create(int val) {
             if (SEM_FAILED != sem) return Err("Sem already opened");
             sem = sem_open(name.c_str(), O_RDWR | O_CREAT, 0777, val);
             if (SEM_FAILED == sem) return Err("Can't create semaphore: error in sem_open");
@@ -192,27 +194,28 @@ namespace tpc {
             this->cond = cond;
             this->sem = sem;
             auto l = Lock(sem);
-            DEBUG_MSG(" Rcounter(c0): " << *counter);
+            DEBUG_MSG(" Rcounter(c0): " << *counter, DF3);
             if (1 == ++*counter) {
-                DEBUG_MSG("1reader");
+                DEBUG_MSG("1reader", DF3);
                 if (-1 == sem_wait(cond)) {
                     --*counter;
+                    DEBUG_MSG("cannot lock writer's lock while reading", DF3);
                     locked = false;
                 } else locked = true;
             } else locked = true;
 
-            DEBUG_MSG("Rcounter(c1): " << *counter);
+            DEBUG_MSG("Rcounter(c1): " << *counter, DF3);
         }
 
         ~ReadersLock() {
             if (!locked) return;
             auto l = Lock(sem);
-            DEBUG_MSG("Rcounter(d0): " << *counter);
+            DEBUG_MSG("Rcounter(d0): " << *counter, DF3);
             if (0 == --*counter) {
-                DEBUG_MSG("0reader");
+                DEBUG_MSG("0reader", DF3);
                 sem_post(cond);
             }
-            DEBUG_MSG("Rcounter(d1): " << *counter);
+            DEBUG_MSG("Rcounter(d1): " << *counter, DF3);
         }
 
         sem_t *sem, *cond;
@@ -226,19 +229,20 @@ namespace tpc {
             this->lim = lim;
             auto l = Lock(sem);
             pos = (*counter)++;
-            DEBUG_MSG("Writer pos: " << pos);
+            DEBUG_MSG("Writer pos: " << pos, DF2);
             *counter %= lim_count;
-            DEBUG_MSG("Next: " << *counter);
-            if (-1 == sem_wait(lim[*counter])){
-                (*counter) --;
+            DEBUG_MSG("Next: " << *counter, DF3);
+            if (-1 == sem_wait(lim[*counter])) {
+                (*counter)--;
                 *counter %= lim_count;
                 pos = *counter;
+                DEBUG_MSG("cannot lock writer's lock while reading", DF3);
                 locked = false;
             } else locked = true;
         }
 
         ~WriterLock() {
-            DEBUG_MSG("Writer sem_post:" << pos);
+            DEBUG_MSG("Writer sem_post:" << pos, DF3);
             if (locked) sem_post(lim[pos]);
         }
 
@@ -267,11 +271,13 @@ namespace tpc {
     SemRange SemRangeMake(ui count) {
         return std::make_unique<SemaphoreRange>(count);
     }
+
     static void signal_handler(int i) {
         interrupted = true;
-        DEBUG_MSG("signal: "+std::to_string(i));
+        DEBUG_MSG("signal: " + std::to_string(i), DF3);
         //raise(SIGINT);
     }
+
     void init_system() {
         interrupted = false;
         signal(SIGINT, signal_handler);
@@ -326,10 +332,11 @@ public:
         else return nullptr;
     }
 
-    bool pub(void *msg) {
+    bool pub(const void *msg) {
+        DEBUG_MSG("Entered pub in " + name, DF4);
         if (tpc::interrupted) return false;
         auto l = tpc::WriterLock(nlock, WposSRC, wlocks->sem, msg_count);
-        if (!l.locked){
+        if (!l.locked) {
 //            if (tpc::interrupted) exit(0);
             return false;
         }
@@ -338,14 +345,16 @@ public:
         return true;
     }
 
-    bool sub(void *msg) {
+    bool sub(const void *msg) {
+        DEBUG_MSG("Entered sub in " + name, DF4);
         if (tpc::interrupted) return false;
+        DEBUG_MSG("Reader pos: "+std::to_string(Rpos), DF2);
         auto l = tpc::ReadersLock(rlocks->sem[Rpos], Rcounters[Rpos], wlocks->sem[Rpos]);
-        if (!l.locked){
+        if (!l.locked) {
 //            if (tpc::interrupted) exit(0);
             return false;
         }
-        memcpy(msg, data[Rpos], msg_size);
+        memcpy((void*)msg, data[Rpos], msg_size);
         Rpos = (Rpos + 1) % msg_count;
         return true;
     }
@@ -388,15 +397,17 @@ private:
         this->msg_size = msg_size;
         this->msg_count = msg_count;
         full_size = DATA_START + (msg_size + UI_SZ) * msg_count;
-        DEBUG_MSG("Full size " << full_size);
+        DEBUG_MSG("Full size " << full_size, DF5);
         memory = tpc::ShmMake(name, full_size);
         semCreate = tpc::SemMake(name + "--C");
     }
-    ui getWpos(){
+
+    ui getWpos() {
         auto l = tpc::Lock(nlock);
         ui pos = *WposSRC;
         return pos;
     }
+
     bool remove() {
         if (semN != nullptr) semN->remove();
         for (auto i = semW.begin(); i != semW.end(); i++) i->get()->remove();
@@ -501,6 +512,150 @@ private:
     std::string name;
     ui msg_size, msg_count, full_size;
 };
+
+template<typename Q, typename A>
+class Service {
+public:
+    using Serv = std::unique_ptr<Service>;
+
+    static Serv create_server(const std::string &name, ui msg_count) {
+        Serv s(new Service(name, msg_count, false));
+        if (s->working) return s;
+        else return nullptr;
+    }
+
+    static Serv create_client(const std::string &name, ui msg_count) {
+        Serv s(new Service(name, msg_count, true));
+        if (s->working) return s;
+        else return nullptr;
+    }
+
+    static bool remove(const std::string &name){
+        return (Topic::remove(name + serv_in_suff) && Topic::remove(name + serv_out_suff));
+    }
+
+    struct QueryMessage {
+        int pid;
+        ui qid;
+        bool ackn;
+        Q body;
+    };
+    struct AnswerMessage {
+        int pid;
+        ui qid;
+        bool success;
+        A body;
+    };
+    class Query{
+    public:
+        bool answer(const A &answer){
+            a_msg.pid = q_msg.pid;
+            a_msg.qid = q_msg.qid;
+            a_msg.success = true;
+            a_msg.body = answer;
+            DEBUG_MSG("MESSAGE OUT: " + std::to_string(a_msg.qid) + " " + std::to_string(a_msg.pid), DF6);
+            return serv->pub_out(a_msg);
+        }
+        bool requires_answer(){
+            return q_msg.ackn && (!answered);
+        }
+        Q & message(){
+            return q_msg.body;
+        }
+        ~Query(){
+            if (requires_answer()){
+                a_msg.pid = q_msg.pid;
+                a_msg.qid = q_msg.qid;
+                a_msg.success = false;
+                serv->pub_out(a_msg);
+            }
+        }
+    private:
+        Query(const QueryMessage &msg, Service * s){
+            serv = s;
+            answered = false;
+            q_msg = msg;
+        }
+        bool answered;
+        Service * serv;
+        friend class Service;
+        QueryMessage q_msg;
+        AnswerMessage a_msg;
+    };
+
+    std::unique_ptr<Query> wait(){
+        if (client) return nullptr;
+        if (in->sub(&q_msg)){
+            DEBUG_MSG("Here query message obtained", DF6);
+            std::unique_ptr<Query> t(new Query(q_msg, this));
+            return t;
+        } else return nullptr;
+    }
+
+    A* ask(const Q & msg, bool ackn){
+        if (!client) return nullptr;
+        q_msg.ackn = ackn;
+        q_msg.body = msg;
+        if (!in->pub(&q_msg)) return nullptr;
+        while (!tpc::interrupted){
+            if (out->sub(&a_msg)){
+                if (a_msg.pid == q_msg.pid) {
+                    if (a_msg.qid == q_msg.qid) {
+                        DEBUG_MSG("PIG and QID match", DF6);
+                        if (a_msg.success) {
+                            q_msg.qid += 1;
+                            DEBUG_MSG("Service answered successfully", DF6);
+                            return &a_msg.body;
+                        } else return nullptr;
+                    }
+                }
+            }
+        }
+        return nullptr;
+    }
+
+
+private:
+    QueryMessage q_msg;
+    AnswerMessage a_msg;
+
+    const ui Q_MSG_SIZE = sizeof(QueryMessage);
+    const ui A_MSG_SIZE = sizeof(AnswerMessage);
+    inline const static std::string serv_in_suff = "--serv-in";
+    inline const static std::string serv_out_suff = "--serv-out";
+
+    bool pub_out(const AnswerMessage &answer){
+        return out->pub(&answer);
+    }
+
+    Service(const std::string &name, ui msg_count, bool is_client) {
+        std::string serv_in = name + serv_in_suff;
+        std::string serv_out = name + serv_out_suff;
+        DEBUG_MSG("Service: will create topics " + serv_in + " and " + serv_out, DF6);
+        client = is_client;
+        if (msg_count > 0) {
+            if (!is_client) {
+                in = Topic::spawn_create(serv_in, Q_MSG_SIZE, msg_count);
+                out = Topic::spawn_create(serv_out, A_MSG_SIZE, msg_count);
+            }
+            else{
+                in = Topic::spawn(serv_in, Q_MSG_SIZE, msg_count);
+                out = Topic::spawn(serv_out, A_MSG_SIZE, msg_count);
+            }
+        } else {
+            in = Topic::spawn(serv_in, Q_MSG_SIZE);
+            out = Topic::spawn(serv_out, A_MSG_SIZE);
+        }
+        q_msg.pid = getpid();
+        q_msg.qid = 0;
+        working = (nullptr != in && nullptr != out);
+    }
+
+    Topic::TopPtr in, out;
+    bool client;
+    bool working;
+};
+
 
 #endif //PUBSUBCPP2_TOPIC_H
 

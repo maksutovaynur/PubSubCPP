@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/aynur/Repos/PubSubCPP/rmtopic.cpp" "/home/aynur/Repos/PubSubCPP/cmake-build-debug/CMakeFiles/rmtopic.dir/rmtopic.cpp.o"
+  "/home/aynur/CLionProjects/PubSubCPP/rmtopic.cpp" "/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/CMakeFiles/rmtopic.dir/rmtopic.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
