@@ -1,6 +1,6 @@
 #include <iostream>
 #include "debug.hpp"
-#define DEBUG DF4 | DF6 | DF2 | DF3
+#define DEBUG DF4 | DF6
 #include "topic.hpp"
 #include <stdio.h>
 

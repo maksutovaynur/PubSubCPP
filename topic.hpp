@@ -12,7 +12,7 @@
 #include "debug.hpp"
 
 #ifdef DEBUG
-#define DEBUG_MSG(str, lev) do { if (lev & DEBUG > 0) std::cout << str << std::endl; } while( false )
+#define DEBUG_MSG(str, lev) do { if (lev & DEBUG != 0) std::cout << str << std::endl; } while( false )
 #else
 #define DEBUG_MSG(str, lev) do { } while ( false )
 #endif // DEBUG MSG
