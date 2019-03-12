@@ -1,6 +1,6 @@
 #include <iostream>
 #include "debug.hpp"
-#define DEBUG DF4 | DF6
+#define DEBUG  DF4 | DF6
 #include "topic.hpp"
 #include <stdio.h>
 
@@ -13,7 +13,7 @@ struct Question{
 
 int main() {
     std::string service_name = "/clap0";
-    std::cout << "Service : " << service_name << std::endl << "Enter 0 to serve, 1 to ask" << std::endl;
+    std::cout << "Service : " << service_name << std::endl << "Enter 0 to serve, 1 to sync_ask" << std::endl;
 
     int i;
     std::cin >> i;
@@ -29,8 +29,12 @@ int main() {
             if (nullptr == q) continue;
             auto msg = q->message();
             auto result = msg.x + msg.y;
-            q->answer(result);
-            std::cout << "SERVICE: [" << msg.x << ", " << msg.y << "] -> " << result << std::endl;
+            std::cout << "SERVICE: [" << msg.x << ", " << msg.y << "]";
+            if (q->requires_answer()){
+                std::cout << " -> " << result;
+                q->answer(result);
+            }
+            std::cout << std::endl;
         }
     }else{
         auto s = Service<Question<int>, int>::create_client(service_name, 10);
@@ -38,7 +42,7 @@ int main() {
         while(!tpc::interrupted){
             std::cin >> msg.x >> msg.y;
             std::cout << "Request: " << msg.x << " " << msg.y << std::endl;
-            auto result = s->ask(msg, true);
+            auto result = s->sync_ask(msg, true);
             if (nullptr != result)
                 std::cout << "Response: " << *result << std::endl;
             else std::cout << "Response: NULL" << std::endl;

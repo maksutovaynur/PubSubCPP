@@ -12,7 +12,7 @@
 #include "debug.hpp"
 
 #ifdef DEBUG
-#define DEBUG_MSG(str, lev) do { if (lev & DEBUG != 0) std::cout << str << std::endl; } while( false )
+#define DEBUG_MSG(str, lev) do {if (0 !=((DEBUG)&lev)) std::cout << str << std::endl; } while( false )
 #else
 #define DEBUG_MSG(str, lev) do { } while ( false )
 #endif // DEBUG MSG
@@ -592,11 +592,12 @@ public:
         } else return nullptr;
     }
 
-    A* ask(const Q & msg, bool ackn){
+    A* sync_ask(const Q &msg, bool ackn){
         if (!client) return nullptr;
         q_msg.ackn = ackn;
         q_msg.body = msg;
         if (!in->pub(&q_msg)) return nullptr;
+        if (!ackn) return nullptr;
         while (!tpc::interrupted){
             if (out->sub(&a_msg)){
                 if (a_msg.pid == q_msg.pid) {
