@@ -592,12 +592,12 @@ public:
         } else return nullptr;
     }
 
-    A* sync_ask(const Q &msg, bool ackn){
+    A* sync_ask(const Q &msg, bool await_answer){
         if (!client) return nullptr;
-        q_msg.ackn = ackn;
+        q_msg.ackn = await_answer;
         q_msg.body = msg;
         if (!in->pub(&q_msg)) return nullptr;
-        if (!ackn) return nullptr;
+        if (!await_answer) return nullptr;
         while (!tpc::interrupted){
             if (out->sub(&a_msg)){
                 if (a_msg.pid == q_msg.pid) {
