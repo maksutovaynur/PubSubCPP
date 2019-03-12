@@ -19,7 +19,12 @@ int main() {
     Question<int> msg;
     while (!tpc::interrupted) {
         std::cin >> msg.x >> msg.y;
-        std::cout << "Request: " << msg.x << " " << msg.y << std::endl;
+        if (std::cin.fail()) {
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cout << "Request: " << msg.x << " " << msg.y << std::endl;
+            continue;
+        }
         auto result = s->sync_ask(msg, true);
         if (nullptr != result)
             std::cout << "Response: " << *result << std::endl;

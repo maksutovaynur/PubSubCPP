@@ -125,6 +125,182 @@
 					<DistClean command="/usr/bin/make -j8 -f &quot;/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
+			<Target title="rmservice">
+				<Option output="/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/rmservice" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/8.2.1/../../../../include/c++/8.2.1"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/8.2.1/../../../../include/c++/8.2.1/x86_64-pc-linux-gnu"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/8.2.1/../../../../include/c++/8.2.1/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/8.2.1/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/8.2.1/include-fixed"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/Makefile&quot;  VERBOSE=1 rmservice"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rmservice/fast">
+				<Option output="/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/rmservice" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/8.2.1/../../../../include/c++/8.2.1"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/8.2.1/../../../../include/c++/8.2.1/x86_64-pc-linux-gnu"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/8.2.1/../../../../include/c++/8.2.1/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/8.2.1/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/8.2.1/include-fixed"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/Makefile&quot;  VERBOSE=1 rmservice/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="pubsub">
+				<Option output="/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/pubsub" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/8.2.1/../../../../include/c++/8.2.1"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/8.2.1/../../../../include/c++/8.2.1/x86_64-pc-linux-gnu"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/8.2.1/../../../../include/c++/8.2.1/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/8.2.1/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/8.2.1/include-fixed"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/Makefile&quot;  VERBOSE=1 pubsub"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="pubsub/fast">
+				<Option output="/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/pubsub" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/8.2.1/../../../../include/c++/8.2.1"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/8.2.1/../../../../include/c++/8.2.1/x86_64-pc-linux-gnu"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/8.2.1/../../../../include/c++/8.2.1/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/8.2.1/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/8.2.1/include-fixed"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/Makefile&quot;  VERBOSE=1 pubsub/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="pubsub1">
+				<Option output="/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/pubsub1" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/8.2.1/../../../../include/c++/8.2.1"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/8.2.1/../../../../include/c++/8.2.1/x86_64-pc-linux-gnu"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/8.2.1/../../../../include/c++/8.2.1/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/8.2.1/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/8.2.1/include-fixed"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/Makefile&quot;  VERBOSE=1 pubsub1"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="pubsub1/fast">
+				<Option output="/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/pubsub1" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/8.2.1/../../../../include/c++/8.2.1"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/8.2.1/../../../../include/c++/8.2.1/x86_64-pc-linux-gnu"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/8.2.1/../../../../include/c++/8.2.1/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/8.2.1/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/8.2.1/include-fixed"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/Makefile&quot;  VERBOSE=1 pubsub1/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="service">
+				<Option output="/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/service" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/8.2.1/../../../../include/c++/8.2.1"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/8.2.1/../../../../include/c++/8.2.1/x86_64-pc-linux-gnu"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/8.2.1/../../../../include/c++/8.2.1/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/8.2.1/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/8.2.1/include-fixed"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/Makefile&quot;  VERBOSE=1 service"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="service/fast">
+				<Option output="/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/service" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/8.2.1/../../../../include/c++/8.2.1"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/8.2.1/../../../../include/c++/8.2.1/x86_64-pc-linux-gnu"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/8.2.1/../../../../include/c++/8.2.1/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/8.2.1/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/8.2.1/include-fixed"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/Makefile&quot;  VERBOSE=1 service/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
 			<Target title="rmtopic">
 				<Option output="/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/rmtopic" prefix_auto="0" extension_auto="0"/>
 				<Option working_dir="/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug"/>
@@ -257,153 +433,25 @@
 					<DistClean command="/usr/bin/make -j8 -f &quot;/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="pubsub">
-				<Option output="/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/pubsub" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug"/>
-				<Option object_output="./"/>
-				<Option type="1"/>
-				<Option compiler="gcc"/>
-				<Compiler>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/8.2.1/../../../../include/c++/8.2.1"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/8.2.1/../../../../include/c++/8.2.1/x86_64-pc-linux-gnu"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/8.2.1/../../../../include/c++/8.2.1/backward"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/8.2.1/include"/>
-					<Add directory="/usr/local/include"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/8.2.1/include-fixed"/>
-					<Add directory="/usr/include"/>
-				</Compiler>
-				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/Makefile&quot;  VERBOSE=1 pubsub"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-				</MakeCommands>
-			</Target>
-			<Target title="pubsub/fast">
-				<Option output="/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/pubsub" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug"/>
-				<Option object_output="./"/>
-				<Option type="1"/>
-				<Option compiler="gcc"/>
-				<Compiler>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/8.2.1/../../../../include/c++/8.2.1"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/8.2.1/../../../../include/c++/8.2.1/x86_64-pc-linux-gnu"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/8.2.1/../../../../include/c++/8.2.1/backward"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/8.2.1/include"/>
-					<Add directory="/usr/local/include"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/8.2.1/include-fixed"/>
-					<Add directory="/usr/include"/>
-				</Compiler>
-				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/Makefile&quot;  VERBOSE=1 pubsub/fast"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-				</MakeCommands>
-			</Target>
-			<Target title="service">
-				<Option output="/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/service" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug"/>
-				<Option object_output="./"/>
-				<Option type="1"/>
-				<Option compiler="gcc"/>
-				<Compiler>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/8.2.1/../../../../include/c++/8.2.1"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/8.2.1/../../../../include/c++/8.2.1/x86_64-pc-linux-gnu"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/8.2.1/../../../../include/c++/8.2.1/backward"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/8.2.1/include"/>
-					<Add directory="/usr/local/include"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/8.2.1/include-fixed"/>
-					<Add directory="/usr/include"/>
-				</Compiler>
-				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/Makefile&quot;  VERBOSE=1 service"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-				</MakeCommands>
-			</Target>
-			<Target title="service/fast">
-				<Option output="/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/service" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug"/>
-				<Option object_output="./"/>
-				<Option type="1"/>
-				<Option compiler="gcc"/>
-				<Compiler>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/8.2.1/../../../../include/c++/8.2.1"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/8.2.1/../../../../include/c++/8.2.1/x86_64-pc-linux-gnu"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/8.2.1/../../../../include/c++/8.2.1/backward"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/8.2.1/include"/>
-					<Add directory="/usr/local/include"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/8.2.1/include-fixed"/>
-					<Add directory="/usr/include"/>
-				</Compiler>
-				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/Makefile&quot;  VERBOSE=1 service/fast"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-				</MakeCommands>
-			</Target>
-			<Target title="rmservice">
-				<Option output="/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/rmservice" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug"/>
-				<Option object_output="./"/>
-				<Option type="1"/>
-				<Option compiler="gcc"/>
-				<Compiler>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/8.2.1/../../../../include/c++/8.2.1"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/8.2.1/../../../../include/c++/8.2.1/x86_64-pc-linux-gnu"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/8.2.1/../../../../include/c++/8.2.1/backward"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/8.2.1/include"/>
-					<Add directory="/usr/local/include"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/8.2.1/include-fixed"/>
-					<Add directory="/usr/include"/>
-				</Compiler>
-				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/Makefile&quot;  VERBOSE=1 rmservice"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-				</MakeCommands>
-			</Target>
-			<Target title="rmservice/fast">
-				<Option output="/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/rmservice" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug"/>
-				<Option object_output="./"/>
-				<Option type="1"/>
-				<Option compiler="gcc"/>
-				<Compiler>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/8.2.1/../../../../include/c++/8.2.1"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/8.2.1/../../../../include/c++/8.2.1/x86_64-pc-linux-gnu"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/8.2.1/../../../../include/c++/8.2.1/backward"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/8.2.1/include"/>
-					<Add directory="/usr/local/include"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/8.2.1/include-fixed"/>
-					<Add directory="/usr/include"/>
-				</Compiler>
-				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/Makefile&quot;  VERBOSE=1 rmservice/fast"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/home/aynur/CLionProjects/PubSubCPP/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-				</MakeCommands>
-			</Target>
 		</Build>
 		<Unit filename="/home/aynur/CLionProjects/PubSubCPP/debug.hpp">
 			<Option target="service_cli"/>
 			<Option target="service_serv"/>
+			<Option target="rmservice"/>
+			<Option target="pubsub"/>
+			<Option target="pubsub1"/>
+			<Option target="service"/>
 			<Option target="rmtopic"/>
 			<Option target="measure"/>
-			<Option target="pubsub"/>
-			<Option target="service"/>
-			<Option target="rmservice"/>
 		</Unit>
 		<Unit filename="/home/aynur/CLionProjects/PubSubCPP/measure.cpp">
 			<Option target="measure"/>
 		</Unit>
 		<Unit filename="/home/aynur/CLionProjects/PubSubCPP/pubsub.cpp">
 			<Option target="pubsub"/>
+		</Unit>
+		<Unit filename="/home/aynur/CLionProjects/PubSubCPP/pubsub1.cpp">
+			<Option target="pubsub1"/>
 		</Unit>
 		<Unit filename="/home/aynur/CLionProjects/PubSubCPP/rmservice.cpp">
 			<Option target="rmservice"/>
@@ -426,11 +474,14 @@
 		<Unit filename="/home/aynur/CLionProjects/PubSubCPP/topic.hpp">
 			<Option target="service_cli"/>
 			<Option target="service_serv"/>
-			<Option target="rmtopic"/>
-			<Option target="measure"/>
+			<Option target="rmservice"/>
 			<Option target="pubsub"/>
 			<Option target="service"/>
-			<Option target="rmservice"/>
+			<Option target="rmtopic"/>
+			<Option target="measure"/>
+		</Unit>
+		<Unit filename="/home/aynur/CLionProjects/PubSubCPP/topic1.hpp">
+			<Option target="pubsub1"/>
 		</Unit>
 		<Unit filename="/home/aynur/CLionProjects/PubSubCPP/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
