@@ -137,58 +137,6 @@ service_serv/fast:
 .PHONY : service_serv/fast
 
 #=============================================================================
-# Target rules for targets named rmservice
-
-# Build rule for target.
-rmservice: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 rmservice
-.PHONY : rmservice
-
-# fast build rule for target.
-rmservice/fast:
-	$(MAKE) -f CMakeFiles/rmservice.dir/build.make CMakeFiles/rmservice.dir/build
-.PHONY : rmservice/fast
-
-#=============================================================================
-# Target rules for targets named pubsub
-
-# Build rule for target.
-pubsub: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 pubsub
-.PHONY : pubsub
-
-# fast build rule for target.
-pubsub/fast:
-	$(MAKE) -f CMakeFiles/pubsub.dir/build.make CMakeFiles/pubsub.dir/build
-.PHONY : pubsub/fast
-
-#=============================================================================
-# Target rules for targets named pubsub1
-
-# Build rule for target.
-pubsub1: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 pubsub1
-.PHONY : pubsub1
-
-# fast build rule for target.
-pubsub1/fast:
-	$(MAKE) -f CMakeFiles/pubsub1.dir/build.make CMakeFiles/pubsub1.dir/build
-.PHONY : pubsub1/fast
-
-#=============================================================================
-# Target rules for targets named service
-
-# Build rule for target.
-service: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 service
-.PHONY : service
-
-# fast build rule for target.
-service/fast:
-	$(MAKE) -f CMakeFiles/service.dir/build.make CMakeFiles/service.dir/build
-.PHONY : service/fast
-
-#=============================================================================
 # Target rules for targets named rmtopic
 
 # Build rule for target.
@@ -226,6 +174,45 @@ test: cmake_check_build_system
 test/fast:
 	$(MAKE) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/build
 .PHONY : test/fast
+
+#=============================================================================
+# Target rules for targets named pubsub
+
+# Build rule for target.
+pubsub: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 pubsub
+.PHONY : pubsub
+
+# fast build rule for target.
+pubsub/fast:
+	$(MAKE) -f CMakeFiles/pubsub.dir/build.make CMakeFiles/pubsub.dir/build
+.PHONY : pubsub/fast
+
+#=============================================================================
+# Target rules for targets named service
+
+# Build rule for target.
+service: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 service
+.PHONY : service
+
+# fast build rule for target.
+service/fast:
+	$(MAKE) -f CMakeFiles/service.dir/build.make CMakeFiles/service.dir/build
+.PHONY : service/fast
+
+#=============================================================================
+# Target rules for targets named rmservice
+
+# Build rule for target.
+rmservice: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 rmservice
+.PHONY : rmservice
+
+# fast build rule for target.
+rmservice/fast:
+	$(MAKE) -f CMakeFiles/rmservice.dir/build.make CMakeFiles/rmservice.dir/build
+.PHONY : rmservice/fast
 
 measure.o: measure.cpp.o
 
@@ -280,33 +267,6 @@ pubsub.s: pubsub.cpp.s
 pubsub.cpp.s:
 	$(MAKE) -f CMakeFiles/pubsub.dir/build.make CMakeFiles/pubsub.dir/pubsub.cpp.s
 .PHONY : pubsub.cpp.s
-
-pubsub1.o: pubsub1.cpp.o
-
-.PHONY : pubsub1.o
-
-# target to build an object file
-pubsub1.cpp.o:
-	$(MAKE) -f CMakeFiles/pubsub1.dir/build.make CMakeFiles/pubsub1.dir/pubsub1.cpp.o
-.PHONY : pubsub1.cpp.o
-
-pubsub1.i: pubsub1.cpp.i
-
-.PHONY : pubsub1.i
-
-# target to preprocess a source file
-pubsub1.cpp.i:
-	$(MAKE) -f CMakeFiles/pubsub1.dir/build.make CMakeFiles/pubsub1.dir/pubsub1.cpp.i
-.PHONY : pubsub1.cpp.i
-
-pubsub1.s: pubsub1.cpp.s
-
-.PHONY : pubsub1.s
-
-# target to generate assembly for a file
-pubsub1.cpp.s:
-	$(MAKE) -f CMakeFiles/pubsub1.dir/build.make CMakeFiles/pubsub1.dir/pubsub1.cpp.s
-.PHONY : pubsub1.cpp.s
 
 rmservice.o: rmservice.cpp.o
 
@@ -480,22 +440,18 @@ help:
 	@echo "... edit_cache"
 	@echo "... service_cli"
 	@echo "... service_serv"
-	@echo "... rmservice"
-	@echo "... pubsub"
-	@echo "... pubsub1"
-	@echo "... service"
 	@echo "... rmtopic"
 	@echo "... measure"
 	@echo "... test"
+	@echo "... pubsub"
+	@echo "... service"
+	@echo "... rmservice"
 	@echo "... measure.o"
 	@echo "... measure.i"
 	@echo "... measure.s"
 	@echo "... pubsub.o"
 	@echo "... pubsub.i"
 	@echo "... pubsub.s"
-	@echo "... pubsub1.o"
-	@echo "... pubsub1.i"
-	@echo "... pubsub1.s"
 	@echo "... rmservice.o"
 	@echo "... rmservice.i"
 	@echo "... rmservice.s"

@@ -14,7 +14,8 @@
 #ifdef DEBUG
 #define DEBUG_MSG(str, lev) do {if (0 !=((DEBUG)&lev)) std::cout << str << std::endl; } while( false )
 #else
-#define DEBUG_MSG(str, lev) do { } while ( false )
+#define DEBUG_MSG(str, lev) 0;
+#do { } while ( false )
 #endif // DEBUG MSG
 
 #ifndef PUBSUBCPP_TOPIC_H
@@ -332,17 +333,20 @@ public:
         else return nullptr;
     }
 
-    bool pub(const void *msg) {
+    bool pub(const void *msg, ui size) {
         DEBUG_MSG("Entered pub in " + name, DF4);
+        if (size > msg_size) return false;
         if (tpc::interrupted) return false;
         auto l = tpc::WriterLock(nlock, WposSRC, wlocks->sem, msg_count);
-        if (!l.locked) {
-//            if (tpc::interrupted) exit(0);
-            return false;
-        }
+        if (!l.locked) return false;
         Wpos = l.pos;
-        memcpy(data[Wpos], msg, msg_size);
+        memcpy(data[Wpos], msg, size);
+        *Msizes[Wpos] = size;
         return true;
+    }
+
+    bool pub(const void *msg){
+        return pub(msg, msg_size);
     }
 
     bool sub(const void *msg) {
@@ -350,11 +354,8 @@ public:
         if (tpc::interrupted) return false;
         DEBUG_MSG("Reader pos: "+std::to_string(Rpos), DF2);
         auto l = tpc::ReadersLock(rlocks->sem[Rpos], Rcounters[Rpos], wlocks->sem[Rpos]);
-        if (!l.locked) {
-//            if (tpc::interrupted) exit(0);
-            return false;
-        }
-        memcpy((void*)msg, data[Rpos], msg_size);
+        if (!l.locked) return false;
+        memcpy((void*)msg, data[Rpos], *Msizes[Rpos]);
         Rpos = (Rpos + 1) % msg_count;
         return true;
     }
@@ -396,7 +397,7 @@ private:
         this->name = name;
         this->msg_size = msg_size;
         this->msg_count = msg_count;
-        full_size = DATA_START + (msg_size + UI_SZ) * msg_count;
+        full_size = DATA_START + (msg_size + UI_SZ*2) * msg_count;
         DEBUG_MSG("Full size " << full_size, DF5);
         memory = tpc::ShmMake(name, full_size);
         semCreate = tpc::SemMake(name + "--C");
@@ -410,8 +411,8 @@ private:
 
     bool remove() {
         if (semN != nullptr) semN->remove();
-        for (auto i = semW.begin(); i != semW.end(); i++) i->get()->remove();
-        for (auto i = semR.begin(); i != semR.end(); i++) i->get()->remove();
+        for (auto&& i : semW) i->remove();
+        for (auto&& i : semR) i->remove();
         if (memory != nullptr) memory->remove();
         return true;
     }
@@ -443,7 +444,8 @@ private:
                 Rpos = 0;
                 create_sems();
                 Rcounters.clear();
-                for (int i = 0; i < msg_count; i++) Rcounters.push_back((ui *) (mpd + i * (msg_size + UI_SZ)));
+                for (int i = 0; i < msg_count; i++) Rcounters.push_back((ui *) (mpd + i * (msg_size + UI_SZ * 2)));
+                for (int i = 0; i < msg_count; i++) Msizes.push_back((ui *) (mpd + i * (msg_size + UI_SZ * 2) + UI_SZ));
                 for (int i = 0; i < msg_count; i++) (*Rcounters[i]) = 0;
             }
         }
@@ -463,14 +465,16 @@ private:
             WposSRC = &(hdr->writer_pos);
             Rpos = 0;
             Rcounters.clear();
-            for (int i = 0; i < msg_count; i++) Rcounters.push_back((ui *) (mpd + i * (msg_size + UI_SZ)));
+            Msizes.clear();
+            for (int i = 0; i < msg_count; i++) Rcounters.push_back((ui *) (mpd + i * (msg_size + UI_SZ * 2)));
+            for (int i = 0; i < msg_count; i++) Msizes.push_back((ui *) (mpd + i * (msg_size + UI_SZ * 2) + UI_SZ));
         }
         if (msg_size <= 0) return tpc::Err("Message size should be > 0");
         if (msg_count <= 0) return tpc::Err("Message count should be > 0");
         full_size = memory->size;
         open_sems();
         data.clear();
-        for (int i = 0; i < msg_count; i++) data.push_back(mpd + i * (msg_size + UI_SZ) + UI_SZ);
+        for (int i = 0; i < msg_count; i++) data.push_back(mpd + i * (msg_size + UI_SZ * 2) + UI_SZ*2);
         Rpos = getWpos();
         return true;
     }
@@ -478,8 +482,8 @@ private:
     bool create_sems() {
         semN->remove();
         if (!semN->create(1)) return tpc::Err("Can't create W_POS semaphore");
-        for (auto i = semR.begin(); i != semR.end(); i++) i->get()->remove();
-        for (auto i = semW.begin(); i != semW.end(); i++) i->get()->remove();
+        for (auto&& i : semR) i->remove();
+        for (auto&& i : semW) i->remove();
         if ((!semR[0]->create(1)) || (!semW[0]->create(0))) return tpc::Err("Can't create W/R semaphore(0)");
         for (int i = 1; i < msg_count; i++)
             if (!semR[i]->create(1) || !semW[i]->create(1)) return tpc::Err("Can't create W/R semaphore(all)");
@@ -507,7 +511,7 @@ private:
     tpc::SemRange wlocks, rlocks;
     sem_t *nlock;
     std::vector<char *> data;
-    std::vector<ui *> Rcounters;
+    std::vector<ui *> Rcounters, Msizes;
     ui Wpos, *WposSRC, Rpos;
     std::string name;
     ui msg_size, msg_count, full_size;
