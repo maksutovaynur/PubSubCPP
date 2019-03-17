@@ -1,5 +1,7 @@
 //#define DEBUG 1
 #include <iostream>
+#include "debug.hpp"
+#define DEBUG DF1 | DF2 | DF3 | DF4 | DF5 | DF6
 #include "topic.hpp"
 #include <stdio.h>
 #include <chrono>
@@ -13,7 +15,7 @@ int main(int argc, char** args) {
     std::string name = "/clap0";
     int receiver = 1;
     int create = 1;
-    Topic::TopPtr t;
+    Topic::Ptr t;
     std::string msg_base = "HelloWorld";
     std::string term = "0";
     if (argc > 1) name = std::string(args[1]);
@@ -26,22 +28,22 @@ int main(int argc, char** args) {
     if (argc > 6) sscanf(args[6], "%lu", &striplen);
     if (argc > 7) sscanf(args[7], "%s", msg);
     if (argc > 8) sscanf(args[8], "%u", &delay);
-    DEBUG_MSG("Receivers: "+std::to_string(receiver));
-    DEBUG_MSG("Create: "+std::to_string(create));
-    DEBUG_MSG("Msg_size: "+std::to_string(msg_size));
-    DEBUG_MSG("Msg_count: "+std::to_string(msg_count));
-    DEBUG_MSG("Msg: " + std::string(msg));
+    DEBUG_MSG("Receivers: "+std::to_string(receiver), DF6);
+    DEBUG_MSG("Create: "+std::to_string(create), DF6);
+    DEBUG_MSG("Msg_size: "+std::to_string(msg_size), DF6);
+    DEBUG_MSG("Msg_count: "+std::to_string(msg_count), DF6);
+    DEBUG_MSG("Msg: " + std::string(msg), DF6);
     if (create) t = Topic::spawn_create(name, msg_size, msg_count);
     else t = Topic::spawn(name, msg_size, msg_count);
     C::time_point c;
-    bool result;
+    ui result;
     if (receiver){
         t->sub(msg);
         c = C::now();
         for (ui i = 0; i < striplen; i++){
             if (Topic::was_interrupted()) break;
             result = t->sub(msg);
-            DEBUG_MSG("result: " + std::to_string(result) + ", " + msg);
+            DEBUG_MSG("result: " + std::to_string(result) + ", " + msg, DF6);
         }
         t->sub(msg);
     }else {
@@ -50,7 +52,7 @@ int main(int argc, char** args) {
         for (ui i = 0; i < striplen; i++){
             if (Topic::was_interrupted()) break;
             result = t->pub(msg);
-            DEBUG_MSG("result: " + std::to_string(result) + ", " + msg);
+            DEBUG_MSG("result: " + std::to_string(result) + ", " + msg, DF6);
             usleep(delay);
         }
         t->pub(msg);

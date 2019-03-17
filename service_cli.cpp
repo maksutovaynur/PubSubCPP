@@ -1,8 +1,6 @@
 #include <iostream>
 #include "debug.hpp"
-
-#define DEBUG  DF4 | DF6
-
+//#define DEBUG DF1 | DF2 | DF3 | DF4 | DF5 | DF6
 #include "topic.hpp"
 #include <stdio.h>
 
@@ -15,19 +13,25 @@ struct Question {
 int main() {
     std::string service_name = "/clap0";
 
-    auto s = Service<Question<int>, int>::create_client(service_name, 10);
+    auto s = service::create_sync_client<8, 4>(service_name);
+    std::cout << "created service " << service_name << std::endl;
     Question<int> msg;
     while (!tpc::interrupted) {
+        std::cout << "x and y > ";
         std::cin >> msg.x >> msg.y;
         if (std::cin.fail()) {
+            DEBUG_MSG("Fail while reading !", DF6);
             std::cin.clear();
+            if (tpc::interrupted) break;
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             std::cout << "Request: " << msg.x << " " << msg.y << std::endl;
             continue;
         }
-        auto result = s->sync_ask(msg, true);
-        if (nullptr != result)
-            std::cout << "Response: " << *result << std::endl;
+        int response;
+        ui cnt = s->ask(&msg, &response);
+        if (cnt > 0)
+            std::cout << "Response: " << response
+            << std::endl;
         else std::cout << "Response: NULL" << std::endl;
     }
 

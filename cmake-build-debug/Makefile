@@ -137,6 +137,45 @@ service_serv/fast:
 .PHONY : service_serv/fast
 
 #=============================================================================
+# Target rules for targets named pubsub2
+
+# Build rule for target.
+pubsub2: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 pubsub2
+.PHONY : pubsub2
+
+# fast build rule for target.
+pubsub2/fast:
+	$(MAKE) -f CMakeFiles/pubsub2.dir/build.make CMakeFiles/pubsub2.dir/build
+.PHONY : pubsub2/fast
+
+#=============================================================================
+# Target rules for targets named pubsub
+
+# Build rule for target.
+pubsub: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 pubsub
+.PHONY : pubsub
+
+# fast build rule for target.
+pubsub/fast:
+	$(MAKE) -f CMakeFiles/pubsub.dir/build.make CMakeFiles/pubsub.dir/build
+.PHONY : pubsub/fast
+
+#=============================================================================
+# Target rules for targets named rmservice
+
+# Build rule for target.
+rmservice: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 rmservice
+.PHONY : rmservice
+
+# fast build rule for target.
+rmservice/fast:
+	$(MAKE) -f CMakeFiles/rmservice.dir/build.make CMakeFiles/rmservice.dir/build
+.PHONY : rmservice/fast
+
+#=============================================================================
 # Target rules for targets named rmtopic
 
 # Build rule for target.
@@ -174,45 +213,6 @@ test: cmake_check_build_system
 test/fast:
 	$(MAKE) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/build
 .PHONY : test/fast
-
-#=============================================================================
-# Target rules for targets named pubsub
-
-# Build rule for target.
-pubsub: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 pubsub
-.PHONY : pubsub
-
-# fast build rule for target.
-pubsub/fast:
-	$(MAKE) -f CMakeFiles/pubsub.dir/build.make CMakeFiles/pubsub.dir/build
-.PHONY : pubsub/fast
-
-#=============================================================================
-# Target rules for targets named service
-
-# Build rule for target.
-service: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 service
-.PHONY : service
-
-# fast build rule for target.
-service/fast:
-	$(MAKE) -f CMakeFiles/service.dir/build.make CMakeFiles/service.dir/build
-.PHONY : service/fast
-
-#=============================================================================
-# Target rules for targets named rmservice
-
-# Build rule for target.
-rmservice: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 rmservice
-.PHONY : rmservice
-
-# fast build rule for target.
-rmservice/fast:
-	$(MAKE) -f CMakeFiles/rmservice.dir/build.make CMakeFiles/rmservice.dir/build
-.PHONY : rmservice/fast
 
 measure.o: measure.cpp.o
 
@@ -268,6 +268,33 @@ pubsub.cpp.s:
 	$(MAKE) -f CMakeFiles/pubsub.dir/build.make CMakeFiles/pubsub.dir/pubsub.cpp.s
 .PHONY : pubsub.cpp.s
 
+pubsub2.o: pubsub2.cpp.o
+
+.PHONY : pubsub2.o
+
+# target to build an object file
+pubsub2.cpp.o:
+	$(MAKE) -f CMakeFiles/pubsub2.dir/build.make CMakeFiles/pubsub2.dir/pubsub2.cpp.o
+.PHONY : pubsub2.cpp.o
+
+pubsub2.i: pubsub2.cpp.i
+
+.PHONY : pubsub2.i
+
+# target to preprocess a source file
+pubsub2.cpp.i:
+	$(MAKE) -f CMakeFiles/pubsub2.dir/build.make CMakeFiles/pubsub2.dir/pubsub2.cpp.i
+.PHONY : pubsub2.cpp.i
+
+pubsub2.s: pubsub2.cpp.s
+
+.PHONY : pubsub2.s
+
+# target to generate assembly for a file
+pubsub2.cpp.s:
+	$(MAKE) -f CMakeFiles/pubsub2.dir/build.make CMakeFiles/pubsub2.dir/pubsub2.cpp.s
+.PHONY : pubsub2.cpp.s
+
 rmservice.o: rmservice.cpp.o
 
 .PHONY : rmservice.o
@@ -321,33 +348,6 @@ rmtopic.s: rmtopic.cpp.s
 rmtopic.cpp.s:
 	$(MAKE) -f CMakeFiles/rmtopic.dir/build.make CMakeFiles/rmtopic.dir/rmtopic.cpp.s
 .PHONY : rmtopic.cpp.s
-
-service.o: service.cpp.o
-
-.PHONY : service.o
-
-# target to build an object file
-service.cpp.o:
-	$(MAKE) -f CMakeFiles/service.dir/build.make CMakeFiles/service.dir/service.cpp.o
-.PHONY : service.cpp.o
-
-service.i: service.cpp.i
-
-.PHONY : service.i
-
-# target to preprocess a source file
-service.cpp.i:
-	$(MAKE) -f CMakeFiles/service.dir/build.make CMakeFiles/service.dir/service.cpp.i
-.PHONY : service.cpp.i
-
-service.s: service.cpp.s
-
-.PHONY : service.s
-
-# target to generate assembly for a file
-service.cpp.s:
-	$(MAKE) -f CMakeFiles/service.dir/build.make CMakeFiles/service.dir/service.cpp.s
-.PHONY : service.cpp.s
 
 service_cli.o: service_cli.cpp.o
 
@@ -440,27 +440,27 @@ help:
 	@echo "... edit_cache"
 	@echo "... service_cli"
 	@echo "... service_serv"
+	@echo "... pubsub2"
+	@echo "... pubsub"
+	@echo "... rmservice"
 	@echo "... rmtopic"
 	@echo "... measure"
 	@echo "... test"
-	@echo "... pubsub"
-	@echo "... service"
-	@echo "... rmservice"
 	@echo "... measure.o"
 	@echo "... measure.i"
 	@echo "... measure.s"
 	@echo "... pubsub.o"
 	@echo "... pubsub.i"
 	@echo "... pubsub.s"
+	@echo "... pubsub2.o"
+	@echo "... pubsub2.i"
+	@echo "... pubsub2.s"
 	@echo "... rmservice.o"
 	@echo "... rmservice.i"
 	@echo "... rmservice.s"
 	@echo "... rmtopic.o"
 	@echo "... rmtopic.i"
 	@echo "... rmtopic.s"
-	@echo "... service.o"
-	@echo "... service.i"
-	@echo "... service.s"
 	@echo "... service_cli.o"
 	@echo "... service_cli.i"
 	@echo "... service_cli.s"

@@ -12,6 +12,6 @@ struct Question{
 int main() {
     std::string service_name = "/clap0";
     std::cout << "Service : " << service_name << " removed" << std::endl;
-    Service<Question<int>, int>::remove(service_name);
+    service::remove(service_name);
     return 0;
 }
