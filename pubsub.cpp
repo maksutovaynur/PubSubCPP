@@ -1,8 +1,6 @@
 #include <iostream>
-#include "debug.hpp"
-#define DEBUG DF1 | DF2 | DF3 | DF4 | DF5 | DF6
 #include "topic.hpp"
-#include <stdio.h>
+#include <cstdio>
 
 const unsigned int MSG_SIZE = 256;
 char msg[MSG_SIZE + 1];

@@ -1,8 +1,6 @@
 #include <iostream>
-#include "debug.hpp"
-//#define DEBUG DF1 | DF2 | DF3 | DF4 | DF5 | DF6
 #include "topic.hpp"
-#include <stdio.h>
+#include <cstdio>
 
 template<typename T>
 struct Question {

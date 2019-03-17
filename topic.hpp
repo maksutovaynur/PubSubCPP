@@ -610,6 +610,7 @@ namespace service {
             ui answer(const void *data, ui size) {
                 if (size > size_out) return 0;
                 memcpy(&resp.body, data, size);
+                resp.hdr.success = true;
                 ui result = out->pub(&resp, sizeof(util::RespHdr) + size);
                 if (result > 0) answered = true;
                 return result;
@@ -617,6 +618,13 @@ namespace service {
 
             ui answer(const void *data) {
                 return answer(data, size_out);
+            }
+
+            bool deny(){
+                resp.hdr.success = false;
+                ui result = out->pub(&resp, sizeof(util::RespHdr));
+                if (result > 0) answered = true;
+                return answered;
             }
 
             Request(const Topic::Ptr &in, const Topic::Ptr &out) {
