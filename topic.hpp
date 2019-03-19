@@ -261,25 +261,25 @@ namespace tpc {
         ui pos;
     };
 
-    class SemaphoreRange {
+    class DataForSemaphoreArray {
     public:
-        explicit SemaphoreRange(ui count) {
+        explicit DataForSemaphoreArray(ui count) {
             this->count = count;
-            sem = (sem_t **) malloc(count * sizeof(sem_t *));
+            data = (sem_t **) malloc(count * sizeof(sem_t *));
         }
 
-        ~SemaphoreRange() {
-            free(sem);
+        ~DataForSemaphoreArray() {
+            free(data);
         }
 
         ui count;
-        sem_t **sem;
+        sem_t **data;
     };
 
-    using SemRange = std::shared_ptr<SemaphoreRange>;
+    using SemArr = std::shared_ptr<DataForSemaphoreArray>;
 
-    SemRange SemRangeMake(ui count) {
-        return std::make_unique<SemaphoreRange>(count);
+    SemArr SemArrMalloc(ui count) {
+        return std::make_unique<DataForSemaphoreArray>(count);
     }
 
     static void signal_handler(int i) {
@@ -346,7 +346,7 @@ public:
         if (tpc::interrupted) return tpc::uiErr("Pub " + name + " was interrupted");
         DEBUG_MSG("Entered pub in " + name, DF4);
         if (size > msg_size) return tpc::uiErr("Pub error: MsgSize is bigger than fixed for topic");
-        auto l = tpc::WriterLock(nlock, WposSRC, wlocks->sem, msg_count);
+        auto l = tpc::WriterLock(nlock, WposSRC, wlocks->data, msg_count);
         if (!l.locked) return tpc::uiErr("Pub error: WriterLock didn't lock");
         Wpos = l.pos;
         memcpy(data[Wpos], msg, size);
@@ -362,7 +362,7 @@ public:
         DEBUG_MSG("Entered sub in " + name, DF4);
         if (tpc::interrupted) return 0;
         DEBUG_MSG("Reader pos: " + std::to_string(Rpos), DF2);
-        auto l = tpc::ReadersLock(rlocks->sem[Rpos], Rcounters[Rpos], wlocks->sem[Rpos]);
+        auto l = tpc::ReadersLock(rlocks->data[Rpos], Rcounters[Rpos], wlocks->data[Rpos]);
         if (!l.locked) return 0;
         ui sz = *Msizes[Rpos];
         memcpy((void *) msg, data[Rpos], sz);
@@ -524,11 +524,11 @@ private:
         if (!semN->open()) return tpc::Err("Can't open W_POS semaphore");
         for (int i = 0; i < msg_count; i++)
             if ((!semR[i]->open()) || (!semW[i]->open())) return tpc::Err("Can't open W/R semaphore");
-        rlocks = tpc::SemRangeMake(msg_count);
-        wlocks = tpc::SemRangeMake(msg_count);
+        rlocks = tpc::SemArrMalloc(msg_count);
+        wlocks = tpc::SemArrMalloc(msg_count);
         for (int i = 0; i < msg_count; i++) {
-            rlocks->sem[i] = semR[i]->sem;
-            wlocks->sem[i] = semW[i]->sem;
+            rlocks->data[i] = semR[i]->sem;
+            wlocks->data[i] = semW[i]->sem;
         }
         nlock = semN->sem;
         return true;
@@ -538,7 +538,7 @@ private:
     tpc::Shm memory;
     tpc::Sem semN, semCreate;
     std::vector<tpc::Sem> semW, semR;
-    tpc::SemRange wlocks, rlocks;
+    tpc::SemArr wlocks, rlocks;
     sem_t *nlock;
     std::vector<char *> data;
     std::vector<ui *> Rcounters, Msizes;

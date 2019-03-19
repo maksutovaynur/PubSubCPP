@@ -1,6 +1,7 @@
 #include <iostream>
 #include "topic.hpp"
 #include <cstdio>
+#include <limits>
 
 template<typename T>
 struct Question {
