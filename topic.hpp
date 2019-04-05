@@ -361,7 +361,7 @@ public:
     ui sub(const void *msg) {
         DEBUG_MSG("Entered sub in " + name, DF4);
         if (tpc::interrupted) return 0;
-        DEBUG_MSG("Reader pos: " + std::to_string(Rpos), DF2);
+        DEBUG_MSG("Reader pos: " + std::to_string(Rpos), DF4);
         auto l = tpc::ReadersLock(rlocks->data[Rpos], Rcounters[Rpos], wlocks->data[Rpos]);
         if (!l.locked) return 0;
         ui sz = *Msizes[Rpos];
@@ -521,6 +521,7 @@ private:
     }
 
     bool open_sems() {
+        DEBUG_MSG("Enter open_sems()", DF5);
         if (!semN->open()) return tpc::Err("Can't open W_POS semaphore");
         for (int i = 0; i < msg_count; i++)
             if ((!semR[i]->open()) || (!semW[i]->open())) return tpc::Err("Can't open W/R semaphore");
@@ -628,12 +629,14 @@ namespace service {
             }
 
             Request(const Topic::Ptr &in, const Topic::Ptr &out) {
+                DEBUG_MSG("Enter Request constructor", DF2);
                 dsz = in->sub(&req) - sizeof(util::ReqHdr);
                 resp.hdr.qid = req.hdr.qid;
                 resp.hdr.pid = req.hdr.pid;
                 resp.hdr.success = true;
                 answered = false;
                 this->out = out;
+                DEBUG_MSG("Finish Request constructor", DF2);
             }
 
             ~Request() {

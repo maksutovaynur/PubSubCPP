@@ -1,1 +1,0 @@
-/usr/bin/c++  -g   CMakeFiles/measure.dir/measure.cpp.o  -o measure /usr/lib/librt.so /usr/lib/libpthread.so 

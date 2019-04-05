@@ -11,10 +11,10 @@ struct Question {
 
 int main() {
     std::string service_name = "/clap0";
-
-    auto s = service::create_sync_client<8, 4>(service_name);
+    using Q = Question<int>;
+    auto s = service::create_sync_client<sizeof(Q), sizeof(int)>(service_name);
     std::cout << "created service " << service_name << std::endl;
-    Question<int> msg;
+    Q msg;
     while (!tpc::interrupted) {
         std::cout << "x and y > ";
         std::cin >> msg.x >> msg.y;

@@ -1,4 +1,6 @@
 #include <iostream>
+#include "debug.hpp"
+#define DEBUG DF6 | DF2 | DF4 | DF3 | DF5
 #include "topic.hpp"
 #include <cstdio>
 
@@ -11,12 +13,14 @@ struct Question {
 
 int main() {
     std::string service_name = "/clap0";
-    auto s = service::create_async_server<8, 4>(service_name, 10, 10);
+    using Q=Question<int>;
+    auto s = service::create_async_server<sizeof(Q), sizeof(int)>(service_name, 10, 10);
     if (nullptr == s) {
         std::cout << "Server wasnt created" << std::endl;
     }
     std::cout << " Starting serve" << std::endl;
     while (!tpc::interrupted) {
+        DEBUG_MSG("Entered cycle", DF6);
         auto q = s->wait_request();
         if (nullptr == q) {
             DEBUG_MSG("Query is null_ptr", DF6);
