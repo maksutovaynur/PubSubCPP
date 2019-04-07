@@ -410,6 +410,7 @@ private:
         DEBUG_MSG("Full size " << full_size, DF5);
         memory = tpc::ShmMake(name, full_size);
         semCreate = tpc::SemMake(name + "--C");
+        steady = false;
     }
 
     ui getWpos() {
@@ -440,7 +441,7 @@ private:
         {
             auto l = tpc::Lock(semCreate->sem);
             if (!memory->exists()) {
-                DEBUG_MSG("Topic didnt exist", DF5);
+                DEBUG_MSG("Topic didnt exist " << name, DF5);
                 existed = false;
                 if (!create) return tpc::Err("Topic doesn't exist; do nothing.");
                 if (!memory->create()) return tpc::Err("Can't create topic.");
@@ -468,7 +469,7 @@ private:
         }
         if (existed) {
             if (!memory->open(true)) return tpc::Err("Topic existed, but errors occured while opening");
-            DEBUG_MSG("Topic existed", DF5);
+            DEBUG_MSG("Topic existed " << name, DF5);
             mp = (char *) memory->data;
             mpd = mp + DATA_START;
             auto hdr = (Header *) mp;
@@ -584,7 +585,9 @@ namespace service {
         }
 
         static bool remove(const std::string &name) {
-            return Topic::remove(name_in(name)) && Topic::remove(name_out(name));
+            bool b1 = Topic::remove(name_in(name));
+            bool b2 = Topic::remove(name_out(name));
+            return b1 && b2;
         }
 
         template<std::size_t size_in, std::size_t size_out>
@@ -661,8 +664,8 @@ namespace service {
 
             static Ptr create(const std::string &name, ui in_msg_cnt, ui out_msg_cnt) {
                 remove(name);
-                auto in = Topic::spawn_create(name_in(name), sizeof(ReqHdr) + size_in, in_msg_cnt);
-                auto out = Topic::spawn_create(name_out(name), sizeof(RespHdr) + size_out, out_msg_cnt);
+                auto in = Topic::spawn_create(name_in(name), sizeof(util::ReqMsg<size_in>), in_msg_cnt);
+                auto out = Topic::spawn_create(name_out(name), sizeof(util::RespMsg<size_out>), out_msg_cnt);
                 if (nullptr == in || nullptr == out) return nullptr;
                 return std::make_shared<AsyncServer>(in, out);
             }

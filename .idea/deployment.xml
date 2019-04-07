@@ -1,8 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="Always">
+  <component name="PublishConfigData" autoUpload="Always" serverName="depsbian">
     <serverData>
-      <paths name="depsbian (2e810535-9623-46d9-a0e2-8f3e92643b29)">
+      <paths name="Default (64185def-6f9c-4a4b-b1b6-3ad4531ed2a7)">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/tmp/tmp.oHqv4i34dE" local="$PROJECT_DIR$" />
+          </mappings>
+          <excludedPaths>
+            <excludedPath local="true" path="$PROJECT_DIR$/cmake-build-debug" />
+          </excludedPaths>
+        </serverdata>
+      </paths>
+      <paths name="depsbian">
         <serverdata>
           <mappings>
             <mapping deploy="/home/aynur/PubSubCPP" local="$PROJECT_DIR$" web="/" />
