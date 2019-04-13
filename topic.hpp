@@ -9,6 +9,7 @@
 #include <memory>
 #include <vector>
 #include <cerrno>
+#include <iostream>
 #include "debug.hpp"
 
 #ifdef DEBUG
@@ -178,7 +179,7 @@ namespace tpc {
     using Sem = std::shared_ptr<Semaphore>;
 
     Sem SemMake(const std::string &name) {
-        return std::make_unique<Semaphore>(name);
+        return std::make_shared<Semaphore>(name);
     }
 
     class Lock {
@@ -302,7 +303,160 @@ namespace tpc {
         siginterrupt(SIGSTOP, 1);
     }
 
+
 }
+
+class Box{
+public:
+    using Ptr=std::shared_ptr<Box>;
+    static Ptr create(const std::string &name, ui size){
+        Ptr loc(new Box(name, size));
+        if (loc->exists()) return nullptr;
+        loc->remove();
+        if (!loc->create() || !loc->open()) return nullptr;
+        return loc;
+    }
+    static Ptr just_open(const std::string &name, ui size){
+        Ptr loc(new Box(name, size));
+        if (!loc->exists()) return nullptr;
+        if (!loc->open()) return nullptr;
+        return loc;
+    }
+    static Ptr open_create(const std::string &name, ui size){
+        Ptr loc(new Box(name, size));
+        if (!loc->exists()) {
+            loc->remove();
+            if (!loc->create()) return nullptr;
+        }
+        if (!loc->open()) return nullptr;
+        return loc;
+    }
+    static bool remove(const std::string &name){
+        auto b = Box(name, 0);
+        b.remove();
+    }
+    bool get(void* data, ui size){
+        if (tpc::interrupted) return false;
+        if (size > this->size) return false;
+        sem_post(w_sem->sem);
+        sem_wait(r_sem->sem);
+        memcpy(data, mem->data, size);
+        return true;
+    }
+    bool get(void* data){
+        return get(data, size);
+    }
+    bool put(void* data, ui size){
+        if (tpc::interrupted) return false;
+        if (size > this->size) return false;
+        sem_wait(w_sem->sem);
+        memcpy(mem->data, data, size);
+        sem_post(r_sem->sem);
+        return true;
+    }
+    bool put(void* data){
+        return put(data, size);
+    }
+    bool remove(){
+        return r_sem->remove() && mem->remove();
+    }
+private:
+    Box(const std::string& name, ui size){
+        this->name = name;
+        this->size = size;
+        r_sem = tpc::SemMake(name + "-R");
+        w_sem = tpc::SemMake(name + "-W");
+        mem = tpc::ShmMake(name, size);
+    }
+    bool exists(){
+        return r_sem->exists() && w_sem->exists() && mem -> exists();
+    }
+    bool create(){
+        return r_sem->create(0) && w_sem->create(0) && mem->create();
+    }
+    bool open(){
+        return r_sem->open() && w_sem->open() && mem->open(false);
+    }
+    std::string name;
+    ui size;
+    tpc::Shm mem;
+    tpc::Sem r_sem, w_sem;
+};
+
+
+class Office{
+public:
+    using Ptr = std::shared_ptr<Office>;
+    static Ptr open_create(const std::string &name, ui in_size, ui out_size) {
+        auto in = Box::open_create(in_name(name), in_size);
+        auto out = Box::open_create(out_name(name), out_size);
+        if (in == nullptr || out == nullptr) return nullptr;
+        std::shared_ptr<Office> off(new Office(in, out));
+        return off;
+    }
+
+    static Ptr create(const std::string &name, ui in_size, ui out_size) {
+        auto in = Box::create(in_name(name), in_size);
+        auto out = Box::create(out_name(name), out_size);
+        if (in == nullptr || out == nullptr) return nullptr;
+        std::shared_ptr<Office> off(new Office(in, out));
+        return off;
+    }
+
+    static Ptr just_open(const std::string &name, ui in_size, ui out_size) {
+        auto in = Box::just_open(in_name(name), in_size);
+        auto out = Box::just_open(out_name(name), out_size);
+        if (in == nullptr || out == nullptr) return nullptr;
+        std::shared_ptr<Office> off(new Office(in, out));
+        return off;
+    }
+
+    static bool remove(const std::string &name){
+        return Box::remove(in_name(name)) && Box::remove(out_name(name));
+    }
+
+    bool ask(void *question, ui size){
+        return input->put(question, size);
+    }
+    bool wait(void *answer, ui size){
+        return output->get(answer, size);
+    }
+    bool look(void *question, ui size){
+        return input->get(question, size);
+    }
+    bool answer(void *answer, ui size){
+        return output->put(answer, size);
+    }
+
+    bool ask(void *question){
+        return input->put(question);
+    }
+    bool get_answer(void *answer){
+        return output->get(answer);
+    }
+    bool get_question(void *question){
+        return input->get(question);
+    }
+    bool put_answer(void *answer){
+        return output->put(answer);
+    }
+
+private:
+    static std::string in_name(const std::string &name){
+        return name + "-I";
+    }
+    static std::string out_name(const std::string &name){
+        return name + "-O";
+    }
+    Office(Box::Ptr in, Box::Ptr out) {
+        input = in;
+        output = out;
+    }
+
+    Box::Ptr input;
+    Box::Ptr output;
+};
+
 
 class Topic {
 public:
@@ -552,6 +706,7 @@ private:
 
 namespace service {
     namespace util {
+
         struct ReqHdr {
             int pid;
             ui qid;
@@ -743,6 +898,39 @@ namespace service {
             ReqMsg<size_in> req;
             RespMsg<size_out> resp;
         };
+        std::string resp_topic_name(const std::string &serv_name, int pid, int rnd){
+            return serv_name + "--P" + std::to_string(pid) + "-R" + std::to_string(rnd);
+        }
+
+//        template<std::size_t size_in, std::size_t size_out>
+//        class Client{
+//            using Cli=std::shared_ptr<Client>;
+//            Cli create(std::string & name){
+//                auto cli = Client(name);
+//            }
+//            Client(const std::string & name){
+//                pid = getpid();
+//                rnd = random();
+//                this->name = resp_topic_name(name, pid, rnd);
+//                sem = tpc::SemMake(name + "-C");
+//                sem->open_create(1);
+//                loc = tpc::LocMake(this->name, size_out);
+//                topic = Topic::spawn(name, sizeof(ReqHdr) + size_in);
+//            }
+//            bool open(){
+//                if (!sem->is_open() )return false;
+//                auto l = tpc::Lock(sem->sem);
+//
+//            }
+//            std::string name;
+//            tpc::Sem sem;
+//            tpc::Loc loc;
+//            Topic::Ptr topic;
+//            int pid;
+//            int rnd;
+//
+//        };
+
     }
 
     template<std::size_t size_in, std::size_t size_out>
@@ -758,9 +946,9 @@ namespace service {
 
     static bool remove(std::string &name) {
         return util::remove(name);
-    }
+    };
+
+
 }
-
-
 #endif //PUBSUBCPP2_TOPIC_H
 

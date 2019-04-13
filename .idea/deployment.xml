@@ -2,10 +2,10 @@
 <project version="4">
   <component name="PublishConfigData" autoUpload="Always" serverName="depsbian">
     <serverData>
-      <paths name="Default (64185def-6f9c-4a4b-b1b6-3ad4531ed2a7)">
+      <paths name="Default (5bc47468-3775-452d-ab81-8af5b4b30f1a)">
         <serverdata>
           <mappings>
-            <mapping deploy="/tmp/tmp.oHqv4i34dE" local="$PROJECT_DIR$" />
+            <mapping deploy="/tmp/tmp.cOmpnHIK51" local="$PROJECT_DIR$" />
           </mappings>
           <excludedPaths>
             <excludedPath local="true" path="$PROJECT_DIR$/cmake-build-debug" />
