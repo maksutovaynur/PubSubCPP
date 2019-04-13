@@ -337,33 +337,36 @@ public:
     }
     bool get(void* data, ui size){
         if (tpc::interrupted) return false;
-        if (size > this->size) return false;
+        if (size > this->mysize) return false;
         sem_post(w_sem->sem);
         sem_wait(r_sem->sem);
         memcpy(data, mem->data, size);
         return true;
     }
     bool get(void* data){
-        return get(data, size);
+        return get(data, mysize);
     }
     bool put(void* data, ui size){
         if (tpc::interrupted) return false;
-        if (size > this->size) return false;
+        if (size > this->mysize) return false;
         sem_wait(w_sem->sem);
         memcpy(mem->data, data, size);
         sem_post(r_sem->sem);
         return true;
     }
     bool put(void* data){
-        return put(data, size);
+        return put(data, mysize);
     }
     bool remove(){
         return r_sem->remove() && mem->remove();
     }
+    const std::string & get_name(){
+        return name;
+    }
 private:
     Box(const std::string& name, ui size){
         this->name = name;
-        this->size = size;
+        this->mysize = size;
         r_sem = tpc::SemMake(name + "-R");
         w_sem = tpc::SemMake(name + "-W");
         mem = tpc::ShmMake(name, size);
@@ -378,7 +381,7 @@ private:
         return r_sem->open() && w_sem->open() && mem->open(false);
     }
     std::string name;
-    ui size;
+    ui mysize;
     tpc::Shm mem;
     tpc::Sem r_sem, w_sem;
 };
@@ -391,7 +394,7 @@ public:
         auto in = Box::open_create(in_name(name), in_size);
         auto out = Box::open_create(out_name(name), out_size);
         if (in == nullptr || out == nullptr) return nullptr;
-        std::shared_ptr<Office> off(new Office(in, out));
+        std::shared_ptr<Office> off(new Office(name, in, out));
         return off;
     }
 
@@ -399,7 +402,7 @@ public:
         auto in = Box::create(in_name(name), in_size);
         auto out = Box::create(out_name(name), out_size);
         if (in == nullptr || out == nullptr) return nullptr;
-        std::shared_ptr<Office> off(new Office(in, out));
+        std::shared_ptr<Office> off(new Office(name, in, out));
         return off;
     }
 
@@ -407,7 +410,7 @@ public:
         auto in = Box::just_open(in_name(name), in_size);
         auto out = Box::just_open(out_name(name), out_size);
         if (in == nullptr || out == nullptr) return nullptr;
-        std::shared_ptr<Office> off(new Office(in, out));
+        std::shared_ptr<Office> off(new Office(name, in, out));
         return off;
     }
 
@@ -440,7 +443,9 @@ public:
     bool put_answer(void *answer){
         return output->put(answer);
     }
-
+    const std::string & get_name(){
+        return myname;
+    }
 private:
     static std::string in_name(const std::string &name){
         return name + "-I";
@@ -448,13 +453,15 @@ private:
     static std::string out_name(const std::string &name){
         return name + "-O";
     }
-    Office(Box::Ptr in, Box::Ptr out) {
+    Office(const std::string &name, Box::Ptr& in, Box::Ptr& out) {
         input = in;
         output = out;
+        myname = name;
     }
 
     Box::Ptr input;
     Box::Ptr output;
+    std::string myname;
 };
 
 
@@ -876,7 +883,7 @@ namespace service {
                 return result;
             }
 
-            SyncClient(Topic::Ptr in, Topic::Ptr out) {
+            SyncClient(Topic::Ptr &in, Topic::Ptr &out) {
                 this->in = in;
                 this->out = out;
                 req.hdr.pid = getpid();
