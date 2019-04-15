@@ -358,7 +358,7 @@ public:
         return put(data, mysize);
     }
     bool remove(){
-        return r_sem->remove() && mem->remove();
+        return r_sem->remove() && w_sem->remove() && mem->remove();
     }
     const std::string & get_name(){
         return name;
