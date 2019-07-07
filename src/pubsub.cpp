@@ -1,5 +1,5 @@
 #include <iostream>
-#include "lib/topic.hpp"
+#include "../lib/topic.hpp"
 #include <cstdio>
 
 const unsigned int MSG_SIZE = 256;

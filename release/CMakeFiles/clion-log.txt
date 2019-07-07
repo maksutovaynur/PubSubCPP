@@ -1,0 +1,4 @@
+/home/aynur/Installed/clion/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Release -G "CodeBlocks - Unix Makefiles" /home/aynur/Repos/PubSubCPP
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/aynur/Repos/PubSubCPP/release

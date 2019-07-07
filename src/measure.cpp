@@ -1,8 +1,8 @@
 //#define DEBUG 1
 #include <iostream>
-#include "lib/debug.hpp"
+#include "../lib/debug.hpp"
 #define DEBUG DF1 | DF2 | DF3 | DF4 | DF5 | DF6
-#include "lib/topic.hpp"
+#include "../lib/topic.hpp"
 #include <stdio.h>
 #include <chrono>
 

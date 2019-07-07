@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC -O3 -DNDEBUG  -shared -Wl,-soname,libclap_pubsub.so -o libclap_pubsub.so CMakeFiles/clap_pubsub.dir/lib/topic.cpp.o /usr/lib/x86_64-linux-gnu/librt.so -lpthread 

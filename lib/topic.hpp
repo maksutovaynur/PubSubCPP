@@ -24,6 +24,12 @@
 
 using ui = unsigned long int;
 
+
+int test(){
+    return 42;
+}
+
+
 namespace tpc {
     volatile thread_local bool interrupted;
 
