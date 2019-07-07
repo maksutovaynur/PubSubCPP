@@ -1,7 +1,7 @@
 #include <iostream>
-#include "debug.hpp"
+#include "lib/debug.hpp"
 //#define DEBUG DF6 | DF2 | DF4 | DF3 | DF5
-#include "topic.hpp"
+#include "lib/topic.hpp"
 #include <cstdio>
 
 template<typename T>

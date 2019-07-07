@@ -1,5 +1,5 @@
 #include <iostream>
-#include "topic.hpp"
+#include "lib/topic.hpp"
 
 int main(int argc, char** args) {
     std::string name = "/mytopic_name";
