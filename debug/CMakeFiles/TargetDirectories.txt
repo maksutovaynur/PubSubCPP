@@ -1,3 +1,0 @@
-/home/aynur/Repos/PubSubCPP/debug/CMakeFiles/rebuild_cache.dir
-/home/aynur/Repos/PubSubCPP/debug/CMakeFiles/clap_pubsub.dir
-/home/aynur/Repos/PubSubCPP/debug/CMakeFiles/edit_cache.dir
