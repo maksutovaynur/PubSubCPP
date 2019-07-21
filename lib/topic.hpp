@@ -106,7 +106,8 @@ namespace tpc {
 
         bool remove() {
             int res = shm_unlink(name.c_str());
-            DEBUG_MSG("Shmem was unlinked (means deleted) with status " << res << ", errno=" << errno, DF2);
+            DEBUG_MSG("Shmem was unlinked (means deleted) with status " << res
+            << ", errno=" << errno, DF2);
             return true;
         }
 
@@ -309,6 +310,38 @@ namespace tpc {
         siginterrupt(SIGSTOP, 1);
     }
 
+    class RWLock{
+    public:
+        RWLock(sem_t *w_sem, sem_t *r_sem, ui *counter){
+            state = state_free;
+            this->counter = counter;
+            this->w_sem = w_sem;
+            this->r_sem = r_sem;
+        }
+        bool reader_lock(){
+            auto l = tpc::Lock(r_sem);
+            if (!l.locked) return false;
+            if (1 == ++*counter) if (-1 == sem_wait(w_sem)) { --*counter; return false; }
+            state = in_read;
+            return true;
+        }
+        bool writer_lock(){
+            if (-1 == sem_wait(w_sem)) return false;
+            state = in_write;
+            return true;
+        }
+        ~RWLock(){
+            if (state==in_read) {
+                auto l = tpc::Lock(r_sem);
+                if (0 == --*counter) sem_post(w_sem);
+            }
+            else if (state==in_write) sem_post(w_sem);
+        }
+        sem_t *w_sem, *r_sem;
+        enum {state_free, in_read, in_write} state;
+        ui *counter;
+    };
+
 
 }
 
@@ -339,7 +372,7 @@ public:
     }
     static bool remove(const std::string &name){
         auto b = Box(name, 0);
-        b.remove();
+        return b.remove();
     }
     bool get(void* data, ui size){
         if (tpc::interrupted) return false;
@@ -388,6 +421,92 @@ private:
     }
     std::string name;
     ui mysize;
+    tpc::Shm mem;
+    tpc::Sem r_sem, w_sem;
+};
+
+
+
+
+class Variable{
+public:
+    using Ptr=std::shared_ptr<Variable>;
+    static Ptr create(const std::string &name, ui size){
+        Ptr var(new Variable(name, size));
+        if (var->exists()) return nullptr;
+        var->remove();
+        if (!var->create() || !var->open()) return nullptr;
+        return var;
+    }
+    static Ptr just_open(const std::string &name, ui size){
+        Ptr var(new Variable(name, size));
+        if (!var->exists()) return nullptr;
+        if (!var->open()) return nullptr;
+        return var;
+    }
+    static Ptr open_create(const std::string &name, ui size){
+        Ptr var(new Variable(name, size));
+        if (!var->exists()) {
+            var->remove();
+            if (!var->create()) return nullptr;
+        }
+        if (!var->open()) return nullptr;
+        return var;
+    }
+    static bool remove(const std::string &name){
+        auto b = Variable(name, 0);
+        return b.remove();
+    }
+    bool read(void *data, ui size){
+        if (tpc::interrupted) return false;
+        if (size > this->mysize) return false;
+        auto l = tpc::RWLock(w_sem->sem, r_sem->sem, counter);
+        if (!l.reader_lock()) return false;
+        memcpy(data, mem->data, size);
+        return true;
+    }
+    bool read(void *data){
+        return read(data, mysize);
+    }
+    bool write(void *data, ui size){
+        if (tpc::interrupted) return false;
+        if (size > this->mysize) return false;
+        auto l = tpc::RWLock(w_sem->sem, r_sem->sem, counter);
+        if (!l.writer_lock()) return false;
+        memcpy(mem->data, data, size);
+        return true;
+    }
+    bool write(void *data){
+        return write(data, mysize);
+    }
+    bool remove(){
+        return r_sem->remove() && w_sem->remove() && mem->remove();
+    }
+    const std::string & get_name(){
+        return name;
+    }
+private:
+    Variable(const std::string& name, ui size){
+        this->name = name;
+        this->mysize = size;
+        r_sem = tpc::SemMake(name + "-varR");
+        w_sem = tpc::SemMake(name + "-varW");
+        mem = tpc::ShmMake(name, size + sizeof(ui));
+    }
+    bool exists(){
+        return r_sem->exists() && w_sem->exists() && mem -> exists();
+    }
+    bool create(){
+        return r_sem->create(1) && w_sem->create(1) && mem->create();
+    }
+    bool open(){
+        bool res = r_sem->open() && w_sem->open() && mem->open(false);
+        if (res) counter = (ui *) (mysize + (char *)mem->data);
+        return res;
+    }
+    ui mysize;
+    ui *counter;
+    std::string name;
     tpc::Shm mem;
     tpc::Sem r_sem, w_sem;
 };
@@ -510,11 +629,14 @@ public:
     }
 
     ui pub(const void *msg, ui size) {
-        if (tpc::interrupted) return tpc::uiErr("Pub " + name + " was interrupted");
+        if (tpc::interrupted)
+            return tpc::uiErr("Pub " + name + " was interrupted");
         DEBUG_MSG("Entered pub in " + name, DF4);
-        if (size > msg_size) return tpc::uiErr("Pub error: MsgSize is bigger than fixed for topic");
+        if (size > msg_size)
+            return tpc::uiErr("Pub error: MsgSize is bigger than fixed for topic");
         auto l = tpc::WriterLock(nlock, WposSRC, wlocks->data, msg_count);
-        if (!l.locked) return tpc::uiErr("Pub error: WriterLock didn't lock");
+        if (!l.locked)
+            return tpc::uiErr("Pub error: WriterLock didn't lock");
         Wpos = l.pos;
         memcpy(data[Wpos], msg, size);
         *Msizes[Wpos] = size;
@@ -598,8 +720,9 @@ private:
     }
 
     bool start(bool create, bool ign_size, bool ign_count) {
-        DEBUG_MSG("Will start topic " << name << " with flags: create[" << create << "], ign_size[" << ign_size
-                                      << "], ign_count[" << ign_count << "]", DF5);
+        if (msg_count <= 1) return false;
+        DEBUG_MSG("Will start topic " << name << " with flags: create[" << create
+        << "], ign_size[" << ign_size << "], ign_count[" << ign_count << "]", DF5);
         if (steady) return true;
         char *mp, *mpd;
         semN = tpc::SemMake(name + "--n");
@@ -610,9 +733,12 @@ private:
             if (!memory->exists()) {
                 DEBUG_MSG("Topic didnt exist " << name, DF5);
                 existed = false;
-                if (!create) return tpc::Err("Topic doesn't exist; do nothing.");
-                if (!memory->create()) return tpc::Err("Can't create topic.");
-                if (!memory->open(false)) return tpc::Err("Topic created, but errors occured while opening");
+                if (!create)
+                    return tpc::Err("Topic doesn't exist; do nothing.");
+                if (!memory->create())
+                    return tpc::Err("Can't create topic.");
+                if (!memory->open(false))
+                    return tpc::Err("Topic created, but errors occured while opening");
                 mp = (char *) memory->data;
                 mpd = mp + DATA_START;
                 auto hdr = (Header *) mp;
@@ -623,32 +749,41 @@ private:
                 Rpos = 0;
                 semR.clear();
                 semW.clear();
-                for (ui i = 0; i < msg_count; i++) semR.push_back(tpc::SemMake(name + "--r" + std::to_string(i)));
-                for (ui i = 0; i < msg_count; i++) semW.push_back(tpc::SemMake(name + "--w" + std::to_string(i)));
+                for (ui i = 0; i < msg_count; i++)
+                    semR.push_back(tpc::SemMake(name + "--r" + std::to_string(i)));
+                for (ui i = 0; i < msg_count; i++)
+                    semW.push_back(tpc::SemMake(name + "--w" + std::to_string(i)));
                 create_sems();
                 Rcounters.clear();
-                for (int i = 0; i < msg_count; i++) Rcounters.push_back((ui *) (mpd + i * (msg_size + UI_SZ * 2)));
-                for (int i = 0; i < msg_count; i++) Msizes.push_back((ui *) (mpd + i * (msg_size + UI_SZ * 2) + UI_SZ));
+                for (int i = 0; i < msg_count; i++)
+                    Rcounters.push_back((ui *) (mpd + i * (msg_size + UI_SZ * 2)));
+                for (int i = 0; i < msg_count; i++)
+                    Msizes.push_back((ui *) (mpd + i * (msg_size + UI_SZ * 2) + UI_SZ));
                 DEBUG_MSG("Just before Rcounters=0", DF5);
-                for (int i = 0; i < msg_count; i++) (*Rcounters[i]) = 0;
+                for (int i = 0; i < msg_count; i++)
+                    (*Rcounters[i]) = 0;
                 DEBUG_MSG("Just after Rcounters=0", DF5);
             }
         }
         if (existed) {
-            if (!memory->open(true)) return tpc::Err("Topic existed, but errors occured while opening");
+            if (!memory->open(true))
+                return tpc::Err("Topic existed, but errors occured while opening");
             DEBUG_MSG("Topic existed " << name, DF5);
             mp = (char *) memory->data;
             mpd = mp + DATA_START;
             auto hdr = (Header *) mp;
             DEBUG_MSG("Before work with shmem hdr", DF5);
             if (msg_size != hdr->msg_size) {
-                if (!ign_size) return tpc::Err(
-                            "Proposed message size doesn't match existing topic message size: found " +
-                            std::to_string(msg_size) + " but expected " + std::to_string(hdr->msg_size));
+                if (!ign_size)
+                    return tpc::Err(
+                        "Proposed message size != existing topic message size: found "
+                        + std::to_string(msg_size) + " but expected "
+                        + std::to_string(hdr->msg_size));
                 msg_size = hdr->msg_size;
             }
             if (msg_count != hdr->msg_count) {
-                if (!ign_count) return tpc::Err("Proposed message count doesn't match existing topic message count");
+                if (!ign_count)
+                    return tpc::Err("Given message != existing topic message count");
                 msg_count = hdr->msg_count;
             }
             WposSRC = &(hdr->writer_pos);
@@ -656,22 +791,28 @@ private:
             Rpos = 0;
             Rcounters.clear();
             Msizes.clear();
-            for (int i = 0; i < msg_count; i++) Rcounters.push_back((ui *) (mpd + i * (msg_size + UI_SZ * 2)));
-            for (int i = 0; i < msg_count; i++) Msizes.push_back((ui *) (mpd + i * (msg_size + UI_SZ * 2) + UI_SZ));
+            for (int i = 0; i < msg_count; i++)
+                Rcounters.push_back((ui *) (mpd + i * (msg_size + UI_SZ * 2)));
+            for (int i = 0; i < msg_count; i++)
+                Msizes.push_back((ui *) (mpd + i * (msg_size + UI_SZ * 2) + UI_SZ));
             DEBUG_MSG("Rconters/Msizes", DF5);
             semR.clear();
             semW.clear();
-            for (ui i = 0; i < msg_count; i++) semR.push_back(tpc::SemMake(name + "--r" + std::to_string(i)));
-            for (ui i = 0; i < msg_count; i++) semW.push_back(tpc::SemMake(name + "--w" + std::to_string(i)));
+            for (ui i = 0; i < msg_count; i++)
+                semR.push_back(tpc::SemMake(name + "--r" + std::to_string(i)));
+            for (ui i = 0; i < msg_count; i++)
+                semW.push_back(tpc::SemMake(name + "--w" + std::to_string(i)));
         }
         if (msg_size <= 0) return tpc::Err("Message size should be > 0");
         if (msg_count <= 0) return tpc::Err("Message count should be > 0");
         full_size = memory->size;
-        DEBUG_MSG("Just before sem open: msg_count=" << msg_count << ", msg_size=" << msg_size, DF5);
+        DEBUG_MSG("Just before sem open: msg_count=" << msg_count
+        << ", msg_size=" << msg_size, DF5);
         open_sems();
         DEBUG_MSG("Opened sems", DF5);
         data.clear();
-        for (int i = 0; i < msg_count; i++) data.push_back(mpd + i * (msg_size + UI_SZ * 2) + UI_SZ * 2);
+        for (int i = 0; i < msg_count; i++)
+            data.push_back(mpd + i * (msg_size + UI_SZ * 2) + UI_SZ * 2);
         Rpos = getWpos();
         DEBUG_MSG("Topic " << name << " successfully opened", DF5);
         return true;
@@ -682,9 +823,11 @@ private:
         if (!semN->create(1)) return tpc::Err("Can't create W_POS semaphore");
         for (auto &&i : semR) i->remove();
         for (auto &&i : semW) i->remove();
-        if ((!semR[0]->create(1)) || (!semW[0]->create(0))) return tpc::Err("Can't create W/R semaphore(0)");
+        if ((!semR[0]->create(1)) || (!semW[0]->create(0)))
+            return tpc::Err("Can't create W/R semaphore(0)");
         for (int i = 1; i < msg_count; i++)
-            if (!semR[i]->create(1) || !semW[i]->create(1)) return tpc::Err("Can't create W/R semaphore(all)");
+            if (!semR[i]->create(1) || !semW[i]->create(1))
+                return tpc::Err("Can't create W/R semaphore(all)");
         return true;
     }
 
@@ -692,7 +835,8 @@ private:
         DEBUG_MSG("Enter open_sems()", DF5);
         if (!semN->open()) return tpc::Err("Can't open W_POS semaphore");
         for (int i = 0; i < msg_count; i++)
-            if ((!semR[i]->open()) || (!semW[i]->open())) return tpc::Err("Can't open W/R semaphore");
+            if ((!semR[i]->open()) || (!semW[i]->open()))
+                return tpc::Err("Can't open W/R semaphore");
         rlocks = tpc::SemArrMalloc(msg_count);
         wlocks = tpc::SemArrMalloc(msg_count);
         for (int i = 0; i < msg_count; i++) {
@@ -716,252 +860,4 @@ private:
     ui msg_size, msg_count, full_size;
 };
 
-
-namespace service {
-    namespace util {
-
-        struct ReqHdr {
-            int pid;
-            ui qid;
-            bool ackn;
-        };
-
-        template<std::size_t size_in>
-        struct ReqMsg {
-            ReqHdr hdr;
-            char body[size_in];
-        };
-
-        struct RespHdr {
-            int pid;
-            ui qid;
-            bool success;
-        };
-
-        template<std::size_t size_out>
-        struct RespMsg {
-            RespHdr hdr;
-            char body[size_out];
-        };
-
-        static std::string name_in(const std::string &name) {
-            return name + "--sin";
-        }
-
-        static std::string name_out(const std::string &name) {
-            return name + "--sout";
-        }
-
-        static bool remove(const std::string &name) {
-            bool b1 = Topic::remove(name_in(name));
-            bool b2 = Topic::remove(name_out(name));
-            return b1 && b2;
-        }
-
-        template<std::size_t size_in, std::size_t size_out>
-        class Request {
-        public:
-            using Ptr = std::shared_ptr<Request>;
-
-            static Ptr create(Topic::Ptr in, Topic::Ptr out) {
-                return std::make_shared<Request>(in, out);
-            }
-
-            bool requires_answer() {
-                return req.hdr.ackn && (!answered);
-            }
-
-            ui size() {
-                return dsz;
-            }
-
-            void *data() {
-                return &req.body;
-            }
-
-            ui answer(const void *data, ui size) {
-                if (size > size_out) return 0;
-                memcpy(&resp.body, data, size);
-                resp.hdr.success = true;
-                ui result = out->pub(&resp, sizeof(util::RespHdr) + size);
-                if (result > 0) answered = true;
-                return result;
-            }
-
-            ui answer(const void *data) {
-                return answer(data, size_out);
-            }
-
-            bool deny(){
-                resp.hdr.success = false;
-                ui result = out->pub(&resp, sizeof(util::RespHdr));
-                if (result > 0) answered = true;
-                return answered;
-            }
-
-            Request(const Topic::Ptr &in, const Topic::Ptr &out) {
-                DEBUG_MSG("Enter Request constructor", DF2);
-                dsz = in->sub(&req) - sizeof(util::ReqHdr);
-                resp.hdr.qid = req.hdr.qid;
-                resp.hdr.pid = req.hdr.pid;
-                resp.hdr.success = true;
-                answered = false;
-                this->out = out;
-                DEBUG_MSG("Finish Request constructor", DF2);
-            }
-
-            ~Request() {
-                if (requires_answer()) {
-                    resp.hdr.success = false;
-                    out->pub(&resp, sizeof(util::RespHdr));
-                }
-            }
-
-        private:
-            Topic::Ptr out;
-            util::ReqMsg<size_in> req;
-            util::RespMsg<size_out> resp;
-            bool answered;
-            ui dsz;
-        };
-
-        template<std::size_t size_in, std::size_t size_out>
-        class AsyncServer {
-        public:
-            using Ptr = std::shared_ptr<AsyncServer>;
-
-            static Ptr create(const std::string &name, ui in_msg_cnt, ui out_msg_cnt) {
-                remove(name);
-                auto in = Topic::spawn_create(name_in(name), sizeof(util::ReqMsg<size_in>), in_msg_cnt);
-                auto out = Topic::spawn_create(name_out(name), sizeof(util::RespMsg<size_out>), out_msg_cnt);
-                if (nullptr == in || nullptr == out) return nullptr;
-                return std::make_shared<AsyncServer>(in, out);
-            }
-
-            typename Request<size_in, size_out>::Ptr wait_request() {
-                if (tpc::interrupted) return nullptr;
-                return Request<size_in, size_out>::create(in, out);
-            }
-
-            AsyncServer(const Topic::Ptr &in, const Topic::Ptr &out) {
-                this->in = in;
-                this->out = out;
-            }
-
-        private:
-            Topic::Ptr in, out;
-        };
-
-        template<std::size_t size_in, std::size_t size_out>
-        class SyncClient {
-        public:
-            using Ptr = std::shared_ptr<SyncClient>;
-
-            static Ptr create(std::string &name) {
-                auto in = Topic::spawn(name_in(name), sizeof(ReqHdr) + size_in);
-                auto out = Topic::spawn(name_out(name), sizeof(RespHdr) + size_out);
-                if (nullptr == in || nullptr == out) return nullptr;
-                return std::make_shared<SyncClient>(in, out);
-            }
-
-            bool inform(void *request) {
-                return _ask(request, size_in, false);
-            }
-
-            bool inform(void *request, ui request_size) {
-                return _ask(request, request_size, false);
-            }
-
-            ui ask(void *request, void *response) {
-                return ask(request, size_in, response);
-            }
-
-            ui ask(void *request, ui request_size, void *response) {
-                if (!_ask(request, request_size, true)) return 0;
-                ui result;
-                do {
-                    result = out->sub(&resp);
-                    if (result == 0) continue;
-                } while (resp.hdr.pid != req.hdr.pid || resp.hdr.qid != req.hdr.qid);
-                if (!resp.hdr.success) return 0;
-                result -= sizeof(RespHdr);
-                memcpy(response, &resp.body, result);
-                return result;
-            }
-
-            SyncClient(Topic::Ptr &in, Topic::Ptr &out) {
-                this->in = in;
-                this->out = out;
-                req.hdr.pid = getpid();
-                req.hdr.qid = 0;
-            }
-
-        private:
-            bool _ask(void *request, ui request_size, bool ackn) {
-                req.hdr.ackn = ackn;
-                DEBUG_MSG("_ask: ackn = " + std::to_string(ackn), DF6);
-                if (request_size > size_in) return false;
-                memcpy(&req.body, request, request_size);
-                ui result = in->pub(&req, sizeof(ReqHdr) + request_size);
-                DEBUG_MSG("_ask: pub result = " + std::to_string(result), DF5);
-                return result != 0;
-            }
-
-            Topic::Ptr in, out;
-            ReqMsg<size_in> req;
-            RespMsg<size_out> resp;
-        };
-        std::string resp_topic_name(const std::string &serv_name, int pid, int rnd){
-            return serv_name + "--P" + std::to_string(pid) + "-R" + std::to_string(rnd);
-        }
-
-//        template<std::size_t size_in, std::size_t size_out>
-//        class Client{
-//            using Cli=std::shared_ptr<Client>;
-//            Cli create(std::string & name){
-//                auto cli = Client(name);
-//            }
-//            Client(const std::string & name){
-//                pid = getpid();
-//                rnd = random();
-//                this->name = resp_topic_name(name, pid, rnd);
-//                sem = tpc::SemMake(name + "-C");
-//                sem->open_create(1);
-//                loc = tpc::LocMake(this->name, size_out);
-//                topic = Topic::spawn(name, sizeof(ReqHdr) + size_in);
-//            }
-//            bool open(){
-//                if (!sem->is_open() )return false;
-//                auto l = tpc::Lock(sem->sem);
-//
-//            }
-//            std::string name;
-//            tpc::Sem sem;
-//            tpc::Loc loc;
-//            Topic::Ptr topic;
-//            int pid;
-//            int rnd;
-//
-//        };
-
-    }
-
-    template<std::size_t size_in, std::size_t size_out>
-    static typename util::AsyncServer<size_in, size_out>::Ptr
-    create_async_server(std::string &name, ui in_msg_cnt, ui out_msg_cnt) {
-        return util::AsyncServer<size_in, size_out>::create(name, in_msg_cnt, out_msg_cnt);
-    };
-
-    template<std::size_t size_in, std::size_t size_out>
-    static typename util::SyncClient<size_in, size_out>::Ptr create_sync_client(std::string &name) {
-        return util::SyncClient<size_in, size_out>::create(name);
-    };
-
-    static bool remove(std::string &name) {
-        return util::remove(name);
-    };
-
-
-}
-#endif //PUBSUBCPP2_TOPIC_H
-
+#endif

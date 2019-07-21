@@ -7,7 +7,9 @@ int main(){
         std::cout << "Cannot open box!" << std::endl;
         return 1;
     }
-    int data = 57;
+    int data;
+    std::cout << "Введите число" << std::endl;
+    std::cin >> data;
     box->put(&data);
     return 0;
 }
