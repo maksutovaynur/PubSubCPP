@@ -426,8 +426,6 @@ private:
 };
 
 
-
-
 class Variable{
 public:
     using Ptr=std::shared_ptr<Variable>;
@@ -457,26 +455,26 @@ public:
         auto b = Variable(name, 0);
         return b.remove();
     }
-    bool read(void *data, ui size){
+    bool read(const void *data, ui size){
         if (tpc::interrupted) return false;
         if (size > this->mysize) return false;
         auto l = tpc::RWLock(w_sem->sem, r_sem->sem, counter);
         if (!l.reader_lock()) return false;
-        memcpy(data, mem->data, size);
+        memcpy((void *)data, mem->data, size);
         return true;
     }
-    bool read(void *data){
+    bool read(const void *data){
         return read(data, mysize);
     }
-    bool write(void *data, ui size){
+    bool write(const void *data, ui size){
         if (tpc::interrupted) return false;
         if (size > this->mysize) return false;
         auto l = tpc::RWLock(w_sem->sem, r_sem->sem, counter);
         if (!l.writer_lock()) return false;
-        memcpy(mem->data, data, size);
+        memcpy((void *)mem->data, data, size);
         return true;
     }
-    bool write(void *data){
+    bool write(const void *data){
         return write(data, mysize);
     }
     bool remove(){
