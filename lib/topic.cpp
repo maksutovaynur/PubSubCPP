@@ -2,6 +2,9 @@
 #include <map>
 #include <iostream>
 #include "topic.hpp"
+#include "Python.h"
+
+
 
 extern "C" {
     int str_len(const char * c){return strlen(c);}
@@ -45,10 +48,12 @@ extern "C" {
     ui topicMsgSize(TopStruct *t){return t->ptr->get_msg_size();}
     ui topicMsgCount(TopStruct *t){return t->ptr->get_msg_count();}
     ui topicPub(TopStruct *t, const char *msg, ui size) {
+        Py_BEGIN_ALLOW_THREADS
         if (size == 0) return t->ptr->pub(msg);
         else return t->ptr->pub(msg, size);
+        Py_END_ALLOW_THREADS
     }
-    ui topicSub(TopStruct *t, const char *msg) {return t->ptr->sub(msg);}
+    ui topicSub(TopStruct *t, const char *msg) {Py_BEGIN_ALLOW_THREADS return t->ptr->sub(msg); Py_END_ALLOW_THREADS}
     bool topicSpawn(TopStruct *t, const char *name, ui size, ui count){
         std::string n(name);
         TopPtr ptr;

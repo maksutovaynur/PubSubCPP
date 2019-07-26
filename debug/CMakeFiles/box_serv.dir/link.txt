@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/box_serv.dir/src/box_serv.cpp.o  -o box_serv /usr/lib/x86_64-linux-gnu/librt.so -lpthread 

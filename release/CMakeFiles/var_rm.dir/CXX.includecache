@@ -1,0 +1,42 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/aynur/Repos/PubSubCPP/lib/debug.hpp
+
+/home/aynur/Repos/PubSubCPP/lib/topic.hpp
+sys/mman.h
+-
+sys/stat.h
+-
+semaphore.h
+-
+csignal
+-
+unistd.h
+-
+fcntl.h
+-
+string
+-
+cstring
+-
+memory
+-
+vector
+-
+cerrno
+-
+iostream
+-
+debug.hpp
+/home/aynur/Repos/PubSubCPP/lib/debug.hpp
+
+/home/aynur/Repos/PubSubCPP/src/var_rm.cpp
+../lib/topic.hpp
+/home/aynur/Repos/PubSubCPP/lib/topic.hpp
+

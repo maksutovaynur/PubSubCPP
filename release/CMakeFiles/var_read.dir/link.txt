@@ -1,0 +1,1 @@
+/usr/bin/c++  -O3 -DNDEBUG   CMakeFiles/var_read.dir/src/var_read.cpp.o  -o var_read /usr/lib/x86_64-linux-gnu/librt.so -lpthread 

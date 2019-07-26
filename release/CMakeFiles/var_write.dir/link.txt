@@ -1,0 +1,1 @@
+/usr/bin/c++  -O3 -DNDEBUG   CMakeFiles/var_write.dir/src/var_write.cpp.o  -o var_write /usr/lib/x86_64-linux-gnu/librt.so -lpthread 

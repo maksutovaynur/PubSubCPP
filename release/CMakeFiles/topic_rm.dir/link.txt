@@ -1,0 +1,1 @@
+/usr/bin/c++  -O3 -DNDEBUG   CMakeFiles/topic_rm.dir/src/topic_rm.cpp.o  -o topic_rm /usr/lib/x86_64-linux-gnu/librt.so -lpthread 

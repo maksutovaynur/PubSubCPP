@@ -1,0 +1,579 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="PubSubCPP"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/aynur/Repos/PubSubCPP/debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/aynur/Repos/PubSubCPP/debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="var_write">
+				<Option output="/home/aynur/Repos/PubSubCPP/debug/var_write" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/aynur/Repos/PubSubCPP/debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/python3.6m"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 var_write"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="var_write/fast">
+				<Option output="/home/aynur/Repos/PubSubCPP/debug/var_write" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/aynur/Repos/PubSubCPP/debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/python3.6m"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 var_write/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="box_rm">
+				<Option output="/home/aynur/Repos/PubSubCPP/debug/box_rm" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/aynur/Repos/PubSubCPP/debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/python3.6m"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 box_rm"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="box_rm/fast">
+				<Option output="/home/aynur/Repos/PubSubCPP/debug/box_rm" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/aynur/Repos/PubSubCPP/debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/python3.6m"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 box_rm/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="topic_sub">
+				<Option output="/home/aynur/Repos/PubSubCPP/debug/topic_sub" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/aynur/Repos/PubSubCPP/debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/python3.6m"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 topic_sub"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="topic_sub/fast">
+				<Option output="/home/aynur/Repos/PubSubCPP/debug/topic_sub" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/aynur/Repos/PubSubCPP/debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/python3.6m"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 topic_sub/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="clap_pubsub">
+				<Option output="/home/aynur/Repos/PubSubCPP/debug/libclap_pubsub.so" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/aynur/Repos/PubSubCPP/debug"/>
+				<Option object_output="./"/>
+				<Option type="3"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/python3.6m"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 clap_pubsub"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="clap_pubsub/fast">
+				<Option output="/home/aynur/Repos/PubSubCPP/debug/libclap_pubsub.so" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/aynur/Repos/PubSubCPP/debug"/>
+				<Option object_output="./"/>
+				<Option type="3"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/python3.6m"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 clap_pubsub/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="topic_rm">
+				<Option output="/home/aynur/Repos/PubSubCPP/debug/topic_rm" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/aynur/Repos/PubSubCPP/debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/python3.6m"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 topic_rm"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="topic_rm/fast">
+				<Option output="/home/aynur/Repos/PubSubCPP/debug/topic_rm" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/aynur/Repos/PubSubCPP/debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/python3.6m"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 topic_rm/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="var_rm">
+				<Option output="/home/aynur/Repos/PubSubCPP/debug/var_rm" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/aynur/Repos/PubSubCPP/debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/python3.6m"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 var_rm"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="var_rm/fast">
+				<Option output="/home/aynur/Repos/PubSubCPP/debug/var_rm" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/aynur/Repos/PubSubCPP/debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/python3.6m"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 var_rm/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="var_read">
+				<Option output="/home/aynur/Repos/PubSubCPP/debug/var_read" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/aynur/Repos/PubSubCPP/debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/python3.6m"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 var_read"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="var_read/fast">
+				<Option output="/home/aynur/Repos/PubSubCPP/debug/var_read" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/aynur/Repos/PubSubCPP/debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/python3.6m"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 var_read/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="topic_pub">
+				<Option output="/home/aynur/Repos/PubSubCPP/debug/topic_pub" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/aynur/Repos/PubSubCPP/debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/python3.6m"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 topic_pub"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="topic_pub/fast">
+				<Option output="/home/aynur/Repos/PubSubCPP/debug/topic_pub" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/aynur/Repos/PubSubCPP/debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/python3.6m"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 topic_pub/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="box_serv">
+				<Option output="/home/aynur/Repos/PubSubCPP/debug/box_serv" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/aynur/Repos/PubSubCPP/debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/python3.6m"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 box_serv"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="box_serv/fast">
+				<Option output="/home/aynur/Repos/PubSubCPP/debug/box_serv" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/aynur/Repos/PubSubCPP/debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/python3.6m"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 box_serv/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/home/aynur/Repos/PubSubCPP/debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="box_cli">
+				<Option output="/home/aynur/Repos/PubSubCPP/debug/box_cli" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/aynur/Repos/PubSubCPP/debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/python3.6m"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 box_cli"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="box_cli/fast">
+				<Option output="/home/aynur/Repos/PubSubCPP/debug/box_cli" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/aynur/Repos/PubSubCPP/debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/python3.6m"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 box_cli/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/aynur/Repos/PubSubCPP/debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/aynur/Repos/PubSubCPP/lib/debug.hpp">
+			<Option target="var_write"/>
+			<Option target="box_rm"/>
+			<Option target="topic_sub"/>
+			<Option target="clap_pubsub"/>
+			<Option target="topic_rm"/>
+			<Option target="var_rm"/>
+			<Option target="var_read"/>
+			<Option target="topic_pub"/>
+			<Option target="box_serv"/>
+			<Option target="box_cli"/>
+		</Unit>
+		<Unit filename="/home/aynur/Repos/PubSubCPP/lib/topic.cpp">
+			<Option target="clap_pubsub"/>
+		</Unit>
+		<Unit filename="/home/aynur/Repos/PubSubCPP/lib/topic.hpp">
+			<Option target="var_write"/>
+			<Option target="box_rm"/>
+			<Option target="topic_sub"/>
+			<Option target="clap_pubsub"/>
+			<Option target="topic_rm"/>
+			<Option target="var_rm"/>
+			<Option target="var_read"/>
+			<Option target="topic_pub"/>
+			<Option target="box_serv"/>
+			<Option target="box_cli"/>
+		</Unit>
+		<Unit filename="/home/aynur/Repos/PubSubCPP/src/box_cli.cpp">
+			<Option target="box_cli"/>
+		</Unit>
+		<Unit filename="/home/aynur/Repos/PubSubCPP/src/box_rm.cpp">
+			<Option target="box_rm"/>
+		</Unit>
+		<Unit filename="/home/aynur/Repos/PubSubCPP/src/box_serv.cpp">
+			<Option target="box_serv"/>
+		</Unit>
+		<Unit filename="/home/aynur/Repos/PubSubCPP/src/topic_pub.cpp">
+			<Option target="topic_pub"/>
+		</Unit>
+		<Unit filename="/home/aynur/Repos/PubSubCPP/src/topic_rm.cpp">
+			<Option target="topic_rm"/>
+		</Unit>
+		<Unit filename="/home/aynur/Repos/PubSubCPP/src/topic_sub.cpp">
+			<Option target="topic_sub"/>
+		</Unit>
+		<Unit filename="/home/aynur/Repos/PubSubCPP/src/var_read.cpp">
+			<Option target="var_read"/>
+		</Unit>
+		<Unit filename="/home/aynur/Repos/PubSubCPP/src/var_rm.cpp">
+			<Option target="var_rm"/>
+		</Unit>
+		<Unit filename="/home/aynur/Repos/PubSubCPP/src/var_write.cpp">
+			<Option target="var_write"/>
+		</Unit>
+		<Unit filename="/home/aynur/Repos/PubSubCPP/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

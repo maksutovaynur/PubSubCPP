@@ -1,0 +1,12 @@
+/home/aynur/Repos/PubSubCPP/debug/CMakeFiles/edit_cache.dir
+/home/aynur/Repos/PubSubCPP/debug/CMakeFiles/var_write.dir
+/home/aynur/Repos/PubSubCPP/debug/CMakeFiles/box_rm.dir
+/home/aynur/Repos/PubSubCPP/debug/CMakeFiles/topic_sub.dir
+/home/aynur/Repos/PubSubCPP/debug/CMakeFiles/clap_pubsub.dir
+/home/aynur/Repos/PubSubCPP/debug/CMakeFiles/topic_rm.dir
+/home/aynur/Repos/PubSubCPP/debug/CMakeFiles/var_rm.dir
+/home/aynur/Repos/PubSubCPP/debug/CMakeFiles/var_read.dir
+/home/aynur/Repos/PubSubCPP/debug/CMakeFiles/topic_pub.dir
+/home/aynur/Repos/PubSubCPP/debug/CMakeFiles/box_serv.dir
+/home/aynur/Repos/PubSubCPP/debug/CMakeFiles/rebuild_cache.dir
+/home/aynur/Repos/PubSubCPP/debug/CMakeFiles/box_cli.dir

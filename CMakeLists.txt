@@ -3,7 +3,8 @@ project(PubSubCPP)
 
 set(CMAKE_CXX_STANDARD 14)
 
-
+find_package(PythonLibs REQUIRED)
+include_directories(${PYTHON_INCLUDE_DIRS})
 find_library(LIBRT rt)
 find_library(LIBPTHREAD pthread)
 add_library (clap_pubsub SHARED lib/topic.cpp lib/topic.hpp lib/debug.hpp)
@@ -21,7 +22,7 @@ add_executable(var_write src/var_write.cpp lib/topic.hpp lib/debug.hpp)
 add_executable(var_rm src/var_rm lib/topic.hpp lib/debug.hpp)
 #add_executable(office_serv office_serv.cpp topic.hpp debug.hpp)
 #add_executable(office_cli office_cli.cpp topic.hpp debug.hpp)
-target_link_libraries(clap_pubsub ${LIBRT} ${LIBPTHREAD})
+target_link_libraries(clap_pubsub ${LIBRT} ${LIBPTHREAD} ${PYTHON_LIBRARIES})
 target_link_libraries(topic_sub ${LIBRT} ${LIBPTHREAD})
 target_link_libraries(topic_pub ${LIBRT} ${LIBPTHREAD})
 target_link_libraries(topic_rm ${LIBRT} ${LIBPTHREAD})
