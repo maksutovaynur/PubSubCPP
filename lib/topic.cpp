@@ -47,13 +47,24 @@ extern "C" {
     ui topicShmemSize(TopStruct *t){return t->ptr->get_shmem_size();}
     ui topicMsgSize(TopStruct *t){return t->ptr->get_msg_size();}
     ui topicMsgCount(TopStruct *t){return t->ptr->get_msg_count();}
+    bool was_interrupted(){ return tpc::interrupted;}
     ui topicPub(TopStruct *t, const char *msg, ui size) {
+        ui result;
         Py_BEGIN_ALLOW_THREADS
-        if (size == 0) return t->ptr->pub(msg);
-        else return t->ptr->pub(msg, size);
+        if (size == 0)
+            result = t->ptr->pub(msg);
+        else
+            result = t->ptr->pub(msg, size);
         Py_END_ALLOW_THREADS
+        return result;
     }
-    ui topicSub(TopStruct *t, const char *msg) {Py_BEGIN_ALLOW_THREADS return t->ptr->sub(msg); Py_END_ALLOW_THREADS}
+    ui topicSub(TopStruct *t, const char *msg) {
+        ui result;
+        Py_BEGIN_ALLOW_THREADS
+        result = t->ptr->sub(msg);
+        Py_END_ALLOW_THREADS
+        return result;
+    }
     bool topicSpawn(TopStruct *t, const char *name, ui size, ui count){
         std::string n(name);
         TopPtr ptr;
